@@ -177,3 +177,15 @@ def get_path_results(length: int, width: int) -> int:
         return 1
     else:
         return get_path_results(length - 1, width) + get_path_results(length, width - 1)
+
+
+def find_max_sum_path(nums: list) -> int:
+    sum_total = 0
+
+    for i in range(len(nums)-2, -1, -1):
+        for v in range(len(nums[i])):
+            nums[i][v] = nums[i][v] + max(nums[i+1][v], nums[i+1][v+1])
+            sum_total += 1
+        nums.pop()
+
+    return int(nums[0][0])
