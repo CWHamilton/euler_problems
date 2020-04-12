@@ -25,6 +25,22 @@ def is_prime(num: int) -> bool:
         return True
 
 
+def find_prime(num):
+    primes = list(prime_valuation(upper_value(num)))
+    return primes[num - 1]
+
+
+def sum_primes(num: int) -> int:
+    r, sieve = 0, [True] * num
+
+    for p in range(2, num):
+        if sieve[p]:
+            r += p
+            for i in range(p * p, num, p):
+                sieve[i] = False
+    return r
+
+
 def power_less_than(num, multi):
     p = num
     while p < multi:
@@ -57,22 +73,6 @@ def upper_value(num):
     if num < 6:
         return 100
     return math.ceil(num * (math.log(num) + math.log(math.log(num))))
-
-
-def find_prime(num):
-    primes = list(prime_valuation(upper_value(num)))
-    return primes[num - 1]
-
-
-def sum_primes(num: int) -> int:
-    r, sieve = 0, [True] * num
-
-    for p in range(2, num):
-        if sieve[p]:
-            r += p
-            for i in range(p * p, num, p):
-                sieve[i] = False
-    return r
 
 
 def generate_num(length: int = 1) -> int:

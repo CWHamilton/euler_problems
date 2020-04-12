@@ -266,6 +266,16 @@ def problem_16(num: int = 1000) -> int:
 
 
 def problem_17() -> int:
+    """
+    https://projecteuler.net/problem=17
+    If all the numbers from 1 to 1000 (one thousand) inclusive were written out in words,
+        how many letters would be used?
+    NOTE:
+        Do not count spaces or hyphens.
+        For example, 342 (three hundred and forty-two) contains 23 letters and
+            115 (one hundred and fifteen) contains 20 letters.
+        The use of "and" when writing out numbers is in compliance with British usage.
+    """
     dic = {n: 0 for n in range(0, 1001)}
     dic[0] = 0  # ''
     dic[1] = len('one')
