@@ -382,3 +382,20 @@ def problem_18() -> int:
 
     number[0] = [75]
     return int(ef.find_max_sum_path(number))
+
+
+def problem_67():
+    """
+    https://projecteuler.net/problem=67
+    Find the maximum total from top to bottom in get_problem_67_data() containing a triangle with one-hundred rows.
+    """
+    number = ed.get_problem_67_data().strip().split('\n')
+
+    for i in range(1, len(number)):
+        number[i] = number[i].strip().split(' ')
+        number[i] = [int(x) for x in number[i]]
+
+    number[0] = [59]
+    return int(ef.find_max_sum_path(number))
+
+print(problem_67())
