@@ -249,9 +249,7 @@ def problem_15(l: int = 20, w: int = 20) -> int:
     How many such routes are there through a 20×20 grid?
     :return:
     """
-    routes = 0
-
-    return routes
+    return ef.get_path_results(l, w)
 
 
 print(problem_15())

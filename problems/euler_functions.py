@@ -1,6 +1,7 @@
 import math
 import random
 import string
+from functools import lru_cache
 
 
 def prime_valuation(num):
@@ -165,14 +166,14 @@ def get_divisors(num: int) -> int:
     return sum(2 for i in range(1, round(math.sqrt(num) + 1)) if not num % i)
 
 
-def n_count(num):
-    counter = 1
-    while num > 1:
-        if num % 2 == 0:
-            num = n_mod(True, num)
-            counter += 1
-        else:
-            num = n_mod(False, num)
-            counter += 1
-        if num == 1:
-            return counter
+@lru_cache(maxsize=None)
+def get_path_results(length: int, width: int) -> int:
+    """
+    Return max number of routes from (x, y) to (l, w) in a grid.
+    """
+    if length > width:
+        return get_path_results(width, length)
+    elif length == 0:
+        return 1
+    else:
+        return get_path_results(length - 1, width) + get_path_results(length, width - 1)
