@@ -246,10 +246,23 @@ def problem_14(limit: int = 1000000):
 
 def problem_15(l: int = 20, w: int = 20) -> int:
     """
+    https://projecteuler.net/problem=15
     How many such routes are there through a 20×20 grid?
     :return:
     """
     return ef.get_path_results(l, w)
 
 
-print(problem_15())
+def problem_16(num: int = 1000) -> int:
+    """
+    https://projecteuler.net/problem=16
+    What is the sum of the digits of the number 2^1000?
+    """
+    r = 0
+    for i in str(2**num):
+        r += int(i)
+
+    return r
+
+
+print(problem_16())
