@@ -85,6 +85,7 @@ class TestEulerResults:
 
         assert expected_value == returned_value, f"Expected {expected_value}, got {returned_value} instead."
 
+    @pytest.mark.slow
     def test_problem_14(self):
         expected_value = 837799
         returned_value = euler.problem_14()
@@ -112,6 +113,18 @@ class TestEulerResults:
     def test_problem_18(self):
         expected_value = 1074
         returned_value = euler.problem_18()
+
+        assert expected_value == returned_value, f"Expected {expected_value}, got {returned_value} instead."
+
+    def test_problem_19(self):
+        expected_value = 171
+        returned_value = euler.problem_19()
+
+        assert expected_value == returned_value, f"Expected {expected_value}, got {returned_value} instead."
+
+    def test_problem_20(self):
+        expected_value = 648
+        returned_value = euler.problem_20()
 
         assert expected_value == returned_value, f"Expected {expected_value}, got {returned_value} instead."
 

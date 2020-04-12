@@ -1,6 +1,8 @@
 import math
 import random
 import string
+from collections import Counter
+from datetime import date
 from functools import lru_cache
 
 
@@ -182,10 +184,25 @@ def get_path_results(length: int, width: int) -> int:
 def find_max_sum_path(nums: list) -> int:
     sum_total = 0
 
-    for i in range(len(nums)-2, -1, -1):
+    for i in range(len(nums) - 2, -1, -1):
         for v in range(len(nums[i])):
-            nums[i][v] = nums[i][v] + max(nums[i+1][v], nums[i+1][v+1])
+            nums[i][v] = nums[i][v] + max(nums[i + 1][v], nums[i + 1][v + 1])
             sum_total += 1
         nums.pop()
 
     return int(nums[0][0])
+
+
+def get_num_dates(start_year: int, end_year: int) -> Counter:
+    counter = Counter()
+
+    for year in range(start_year, end_year):
+        for month in range(1, 13):
+            day = date(year, month, 1)
+            counter[day.weekday()] += 1
+
+    return counter[6]
+
+
+def factorial(num: int) -> int:
+    return math.factorial(num)
