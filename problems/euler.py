@@ -259,10 +259,57 @@ def problem_16(num: int = 1000) -> int:
     What is the sum of the digits of the number 2^1000?
     """
     r = 0
-    for i in str(2**num):
+    for i in str(2 ** num):
         r += int(i)
 
     return r
 
 
-print(problem_16())
+def problem_17() -> int:
+    dic = {n: 0 for n in range(0, 1001)}
+    dic[0] = 0  # ''
+    dic[1] = len('one')
+    dic[2] = len('two')
+    dic[3] = len('three')
+    dic[4] = len('four')
+    dic[5] = len('five')
+    dic[6] = len('six')
+    dic[7] = len('seven')
+    dic[8] = len('eight')
+    dic[9] = len('nine')
+    dic[10] = len('ten')
+    dic[11] = len('eleven')
+    dic[12] = len('twelve')
+    dic[13] = len('thirteen')
+    dic[14] = len('fourteen')
+    dic[15] = len('fifteen')
+    dic[16] = len('sixteen')
+    dic[17] = len('seventeen')
+    dic[18] = len('eighteen')
+    dic[19] = len('nineteen')
+    dic[20] = len('twenty')
+    dic[30] = len('thirty')
+    dic[40] = len('forty')
+    dic[50] = len('fifty')
+    dic[60] = len('sixty')
+    dic[70] = len('seventy')
+    dic[80] = len('eighty')
+    dic[90] = len('ninety')
+
+    for i in range(21, 100):
+        tens = int(i / 10) * 10
+        ones = i - tens
+        dic[i] = dic[tens] + dic[ones]
+
+    for i in range(100, 1000):
+        hundreds = int(i / 100)
+        tens_ones = i - hundreds * 100
+
+        if tens_ones == 0:
+            dic[i] = dic[hundreds] + len('hundred')
+        else:
+            dic[i] = dic[hundreds] + len('hundredand') + dic[tens_ones]
+
+    dic[1000] = len('onethousand')
+
+    return sum(dic.values())
