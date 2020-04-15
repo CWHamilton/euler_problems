@@ -214,7 +214,7 @@ def factorial(num: int) -> int:
     return math.factorial(num)
 
 
-def find_amicable(limit:int) -> list:
+def find_amicable(limit: int) -> list:
     primes = []
     for i in range(limit):
         if is_prime(i):

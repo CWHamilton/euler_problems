@@ -43,6 +43,7 @@ env/
 coverage.xml
 .ropeproject
 .idea
+*.idea
 .hypothesis
 .pydevproject
 .project
