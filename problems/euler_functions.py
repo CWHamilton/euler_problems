@@ -164,8 +164,14 @@ def get_greatest_product_in_grid(numbers: list) -> int:
     return product_current
 
 
-def get_divisors(num: int) -> int:
-    return sum(2 for i in range(1, round(math.sqrt(num) + 1)) if not num % i)
+def get_divisors(num: int) -> list:
+    divs = [1]
+
+    for i in range(2, int(math.sqrt(num)) + 1):
+        if num % i == 0:
+            divs.extend([i, num / i])
+
+    return list(set(divs))
 
 
 @lru_cache(maxsize=None)
@@ -206,3 +212,24 @@ def get_num_dates(start_year: int, end_year: int) -> Counter:
 
 def factorial(num: int) -> int:
     return math.factorial(num)
+
+
+def find_amicable(limit:int) -> list:
+    primes = []
+    for i in range(limit):
+        if is_prime(i):
+            primes.append(i)
+    amicable = []
+    checked = []
+
+    for i in range(2, limit):
+        if i not in primes and i not in checked:
+            a = sum(get_divisors(i))
+            b = sum(get_divisors(a))
+            checked.extend([a, b])
+
+            if i == b:
+                if a != b:
+                    amicable.extend([i, a])
+
+    return amicable

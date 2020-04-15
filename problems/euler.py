@@ -384,7 +384,7 @@ def problem_18() -> int:
     return int(ef.find_max_sum_path(number))
 
 
-def problem_19():
+def problem_19() -> int:
     """
     https://projecteuler.net/problem=19
     You are given the following information, but you may prefer to do some research for yourself.
@@ -400,10 +400,10 @@ def problem_19():
 
     How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
     """
-    return ef.get_num_dates(1901, 2001)
+    return int(str(ef.get_num_dates(1901, 2001)))
 
 
-def problem_20():
+def problem_20() -> int:
     """
     https://projecteuler.net/problem=20
     n! means n × (n − 1) × ... × 3 × 2 × 1
@@ -421,7 +421,20 @@ def problem_20():
     return r
 
 
-print(problem_20())
+def problem_21(limit: int = 10000) -> int:
+    """
+    https://projecteuler.net/problem=21
+    Let d(n) be defined as the sum of proper divisors of n (numbers less than n which divide evenly into n).
+    If d(a) = b and d(b) = a, where a ≠ b, then a and b are an amicable pair and each of a and b are called
+        amicable numbers.
+
+    For example:
+        The proper divisors of 220 are 1, 2, 4, 5, 10, 11, 20, 22, 44, 55 and 110; therefore d(220) = 284.
+        The proper divisors of 284 are 1, 2, 4, 71 and 142; so d(284) = 220.
+
+    Evaluate the sum of all the amicable numbers under 10000.
+    """
+    return int(sum(ef.find_amicable(limit)))
 
 
 def problem_67():
