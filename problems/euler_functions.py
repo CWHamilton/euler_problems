@@ -169,7 +169,7 @@ def get_divisors(num: int) -> list:
 
     for i in range(2, int(math.sqrt(num)) + 1):
         if num % i == 0:
-            divs.extend([i, num / i])
+            divs.extend([int(i), int(num / i)])
 
     return list(set(divs))
 
