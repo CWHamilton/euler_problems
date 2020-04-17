@@ -494,14 +494,43 @@ def problem_23():
     for i in range(len(abundant_nums)):
         for j in range(i, abundant_limit):
             if abundant_nums[i] + abundant_nums[j] < abundant_limit:
-                non_abundant_sums[abundant_nums[i]+abundant_nums[j]] = 0
+                non_abundant_sums[abundant_nums[i] + abundant_nums[j]] = 0
             else:
                 break
 
     return sum(non_abundant_sums)
 
 
-print(problem_23())
+def problem_24(perm: int = 1000000, chars: str = "0123456789") -> str:
+    """
+    https://projecteuler.net/problem=24
+    A permutation is an ordered arrangement of objects. For example, 3124 is one possible permutation of the digits
+    1, 2, 3 and 4. If all of the permutations are listed numerically or alphabetically, we call it lexicographic order.
+    The lexicographic permutations of 0, 1 and 2 are: 012   021   102   120   201   210
+    What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
+    """
+    return ef.get_permutations(perm, chars)
+
+
+def problem_25(limit: int = 1000) -> int:
+    """
+    https://projecteuler.net/problem=25
+    What is the index of the first term in the Fibonacci sequence to contain 1000 digits?
+    """
+    a = 1
+    b = 1
+    c = 2
+    fib_list = [a, b, c]
+    while len(str(b)) < limit:
+        b = a + b
+        a = c
+        c = b
+        fib_list.append(b)
+
+    return len(fib_list) - 1
+
+
+print(problem_25())
 
 
 def problem_67():

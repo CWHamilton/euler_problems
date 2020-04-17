@@ -4,6 +4,7 @@ import string
 from collections import Counter
 from datetime import date
 from functools import lru_cache
+from itertools import permutations as perm
 
 
 def prime_valuation(num):
@@ -233,3 +234,7 @@ def find_amicable(limit: int) -> list:
                     amicable.extend([i, a])
 
     return amicable
+
+
+def get_permutations(permutation: int, chars: str) -> str:
+    return ''.join(list(perm(chars, 10))[permutation - 1])
