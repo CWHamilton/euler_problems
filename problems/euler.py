@@ -530,7 +530,38 @@ def problem_25(limit: int = 1000) -> int:
     return len(fib_list) - 1
 
 
-print(problem_25())
+def problem_26(div: int = 1000):
+    """
+    https://projecteuler.net/problem=26
+    Find the value of d < 1000 for which 1/d contains the longest recurring cycle in its decimal fraction part.
+    """
+
+    primes = ef.sieve(1000)
+    d = {n: 0 for n in range(1, div)}
+
+    d[3] = 1
+
+    for i in primes[3:]:
+        d[i] = len(ef.recurring_decimal(i))
+
+    for i in range(6, div):
+        if not d[i]:
+            if i % 2 != 0 != i % 5:
+                for j in primes:
+                    if i % j == 0:
+                        num1 = d[j]
+                        num2 = d[i/j]
+                        d[i] = ef.lcm(num2, num1)
+                        break
+            else:
+                number = i
+                while number % 2 == 0:
+                    number = number / 2
+                while number % 5 == 0:
+                    number = number / 5
+                d[i] = d[number]
+
+    return list(d.values()).index(max(d.values()))+1
 
 
 def problem_67():

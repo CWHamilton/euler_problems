@@ -44,6 +44,26 @@ def sum_primes(num: int) -> int:
     return r
 
 
+def sieve(n):
+    """
+    sieve of Eratosthenes
+    https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+    """
+    p = [True] * n
+    p[0] = False
+    p[1] = False
+    for i in range(2, int(n ** 0.5 + 1)):
+        index = i * 2
+        while index < n:
+            p[index] = False
+            index = index + i
+    prime = []
+    for i in range(n):
+        if p[i]:
+            prime.append(i)
+    return prime
+
+
 def power_less_than(num, multi):
     p = num
     while p < multi:
@@ -238,3 +258,49 @@ def find_amicable(limit: int) -> list:
 
 def get_permutations(permutation: int, chars: str) -> str:
     return ''.join(list(perm(chars, 10))[permutation - 1])
+
+
+def recurring_decimal(div):
+    if div < 10:
+        dividend = 10
+    elif 10 <= div < 100:
+        dividend = 100
+    else:
+        dividend = 1000
+
+    value = dividend
+    text = ''
+
+    for i in range(div):
+        text += str(dividend % div)
+        dividend = dividend % div
+
+        if dividend < div:
+            dividend *= 10
+            if dividend < div:
+                dividend *= 10
+                text += '0'
+                if dividend < div:
+                    dividend *= 10
+                    text += '0'
+        if dividend == value:
+            return text
+
+
+def gcd(num1, num2):
+    """
+    Return greatest common denominator
+    """
+    r = 1
+    while r != 0:
+        r = num1 % num2
+        num1 = num2
+        num2 = r
+    return num1
+
+
+def lcm(num1, num2):
+    """
+    Return lowest common denominator
+    """
+    return (num1 * num2) / gcd(num1, num2)

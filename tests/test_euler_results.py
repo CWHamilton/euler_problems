@@ -159,6 +159,12 @@ class TestEulerResults:
 
         assert expected_value == returned_value, f"Expected {expected_value}, got {returned_value} instead."
 
+    def test_problem_26(self):
+        expected_value = 983
+        returned_value = euler.problem_26()
+
+        assert expected_value == returned_value, f"Expected {expected_value}, got {returned_value} instead."
+
     def test_problem_67(self):
         expected_value = 7273
         returned_value = euler.problem_67()
