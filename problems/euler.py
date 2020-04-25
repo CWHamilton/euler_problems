@@ -501,7 +501,7 @@ def problem_23():
     return sum(non_abundant_sums)
 
 
-def problem_24(perm: int = 1000000, chars: str = "0123456789") -> str:
+def problem_24(perm: int = 1000000, chars: str = "0123456789") -> int:
     """
     https://projecteuler.net/problem=24
     A permutation is an ordered arrangement of objects. For example, 3124 is one possible permutation of the digits
@@ -509,7 +509,7 @@ def problem_24(perm: int = 1000000, chars: str = "0123456789") -> str:
     The lexicographic permutations of 0, 1 and 2 are: 012   021   102   120   201   210
     What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
     """
-    return ef.get_permutations(perm, chars)
+    return int(ef.get_permutations(perm, chars))
 
 
 def problem_25(limit: int = 1000) -> int:
@@ -562,6 +562,20 @@ def problem_26(div: int = 1000):
                 d[i] = d[number]
 
     return list(d.values()).index(max(d.values()))+1
+
+
+def problem_27() -> int:
+    """
+    Considering quadratics of the form:
+
+        n2+an+b, where |a|<1000 and |b|≤1000
+
+        where |n| is the modulus/absolute value of n
+            e.g. |11|=11 and |−4|=4
+
+    Find the product of the coefficients, a and b, for the quadratic expression that produces the maximum number of
+        primes for consecutive values of n, starting with n=0.
+    """
 
 
 def problem_67():
