@@ -2,7 +2,7 @@ import re
 from functools import reduce
 
 import data.get_data as ed
-import problems.euler_functions as ef
+import problems.common as ef
 
 
 def problem_1(total: int = 1000) -> int:
@@ -116,8 +116,11 @@ def problem_8(adjacent: int = 13) -> int:
     num = str(ed.get_problem_8_data())
     max_v = 0
 
-    for i, n, in enumerate(num):
-        value = reduce((lambda x, y: x * y), map(int, (num[i:i + adjacent])))
+    for (
+        i,
+        n,
+    ) in enumerate(num):
+        value = reduce((lambda x, y: x * y), map(int, (num[i : i + adjacent])))
 
         if value > max_v:
             max_v = value
@@ -245,13 +248,13 @@ def problem_14(limit: int = 1000000):
     return list(dic.values()).index(max(dic.values())) + 1
 
 
-def problem_15(l: int = 20, w: int = 20) -> int:
+def problem_15(length: int = 20, width: int = 20) -> int:
     """
     https://projecteuler.net/problem=15
     How many such routes are there through a 20×20 grid?
     :return:
     """
-    return ef.get_path_results(l, w)
+    return ef.get_path_results(length, width)
 
 
 def problem_16(num: int = 1000) -> int:
@@ -279,33 +282,33 @@ def problem_17() -> int:
     """
     dic = {n: 0 for n in range(0, 1001)}
     dic[0] = 0  # ''
-    dic[1] = len('one')
-    dic[2] = len('two')
-    dic[3] = len('three')
-    dic[4] = len('four')
-    dic[5] = len('five')
-    dic[6] = len('six')
-    dic[7] = len('seven')
-    dic[8] = len('eight')
-    dic[9] = len('nine')
-    dic[10] = len('ten')
-    dic[11] = len('eleven')
-    dic[12] = len('twelve')
-    dic[13] = len('thirteen')
-    dic[14] = len('fourteen')
-    dic[15] = len('fifteen')
-    dic[16] = len('sixteen')
-    dic[17] = len('seventeen')
-    dic[18] = len('eighteen')
-    dic[19] = len('nineteen')
-    dic[20] = len('twenty')
-    dic[30] = len('thirty')
-    dic[40] = len('forty')
-    dic[50] = len('fifty')
-    dic[60] = len('sixty')
-    dic[70] = len('seventy')
-    dic[80] = len('eighty')
-    dic[90] = len('ninety')
+    dic[1] = len("one")
+    dic[2] = len("two")
+    dic[3] = len("three")
+    dic[4] = len("four")
+    dic[5] = len("five")
+    dic[6] = len("six")
+    dic[7] = len("seven")
+    dic[8] = len("eight")
+    dic[9] = len("nine")
+    dic[10] = len("ten")
+    dic[11] = len("eleven")
+    dic[12] = len("twelve")
+    dic[13] = len("thirteen")
+    dic[14] = len("fourteen")
+    dic[15] = len("fifteen")
+    dic[16] = len("sixteen")
+    dic[17] = len("seventeen")
+    dic[18] = len("eighteen")
+    dic[19] = len("nineteen")
+    dic[20] = len("twenty")
+    dic[30] = len("thirty")
+    dic[40] = len("forty")
+    dic[50] = len("fifty")
+    dic[60] = len("sixty")
+    dic[70] = len("seventy")
+    dic[80] = len("eighty")
+    dic[90] = len("ninety")
 
     for i in range(21, 100):
         tens = int(i / 10) * 10
@@ -317,11 +320,11 @@ def problem_17() -> int:
         tens_ones = i - hundreds * 100
 
         if tens_ones == 0:
-            dic[i] = dic[hundreds] + len('hundred')
+            dic[i] = dic[hundreds] + len("hundred")
         else:
-            dic[i] = dic[hundreds] + len('hundredand') + dic[tens_ones]
+            dic[i] = dic[hundreds] + len("hundredand") + dic[tens_ones]
 
-    dic[1000] = len('onethousand')
+    dic[1000] = len("onethousand")
 
     return sum(dic.values())
 
@@ -357,8 +360,7 @@ def problem_18() -> int:
      63 66 04 68 89 53 67 30 73 16 69 87 40 31
     04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
     """
-    number = \
-        '''\
+    number = """\
         75
         95 64
         17 47 82
@@ -373,12 +375,12 @@ def problem_18() -> int:
         70 11 33 28 77 73 17 78 39 68 17 57
         91 71 52 38 17 14 91 43 58 50 27 29 48
         63 66 04 68 89 53 67 30 73 16 69 87 40 31
-        04 62 98 27 23 09 70 98 73 93 38 53 60 04 23'''
+        04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"""
 
-    number = number.strip().split('\n')
+    number = number.strip().split("\n")
 
     for i in range(1, len(number)):
-        number[i] = number[i].strip().split(' ')
+        number[i] = number[i].strip().split(" ")
         number[i] = [int(x) for x in number[i]]
 
     number[0] = [75]
@@ -450,12 +452,37 @@ def problem_22(names: list = ed.get_problem_22_data()) -> int:
 
     What is the total of all the name scores in the file?
     """
-    dic = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7, "H": 8, "I": 9, "J": 10, "K": 11, "L": 12,
-           "M": 13, "N": 14, "O": 15, "P": 16, "Q": 17, "R": 18, "S": 19, "T": 20, "U": 21, "V": 22, "W": 23,
-           "X": 24, "Y": 25, "Z": 26}
+    dic = {
+        "A": 1,
+        "B": 2,
+        "C": 3,
+        "D": 4,
+        "E": 5,
+        "F": 6,
+        "G": 7,
+        "H": 8,
+        "I": 9,
+        "J": 10,
+        "K": 11,
+        "L": 12,
+        "M": 13,
+        "N": 14,
+        "O": 15,
+        "P": 16,
+        "Q": 17,
+        "R": 18,
+        "S": 19,
+        "T": 20,
+        "U": 21,
+        "V": 22,
+        "W": 23,
+        "X": 24,
+        "Y": 25,
+        "Z": 26,
+    }
     names = str(names)
-    names = names.strip().split(',')
-    names = [re.sub(r'\W', '', x) for x in names]
+    names = names.strip().split(",")
+    names = [re.sub(r"\W", "", x) for x in names]
     names.sort()
     r = 0
 
@@ -550,7 +577,7 @@ def problem_26(div: int = 1000):
                 for j in primes:
                     if i % j == 0:
                         num1 = d[j]
-                        num2 = d[i/j]
+                        num2 = d[i / j]
                         d[i] = ef.lcm(num2, num1)
                         break
             else:
@@ -561,7 +588,7 @@ def problem_26(div: int = 1000):
                     number = number / 5
                 d[i] = d[number]
 
-    return list(d.values()).index(max(d.values()))+1
+    return list(d.values()).index(max(d.values())) + 1
 
 
 def problem_27() -> int:
@@ -583,10 +610,10 @@ def problem_67():
     https://projecteuler.net/problem=67
     Find the maximum total from top to bottom in get_problem_67_data() containing a triangle with one-hundred rows.
     """
-    number = ed.get_problem_67_data().strip().split('\n')
+    number = ed.get_problem_67_data().strip().split("\n")
 
     for i in range(1, len(number)):
-        number[i] = number[i].strip().split(' ')
+        number[i] = number[i].strip().split(" ")
         number[i] = [int(x) for x in number[i]]
 
     number[0] = [59]
