@@ -1,7 +1,7 @@
+import os
 import re
 from functools import reduce
 
-import data.get_data as ed
 import problems.common as ef
 
 
@@ -113,19 +113,21 @@ def problem_8(adjacent: int = 13) -> int:
     :param: adjacent
     :return:
     """
-    num = str(ed.get_problem_8_data())
-    max_v = 0
+    with open(os.path.join(os.getcwd(), "data", "problem_008.txt"), "r") as f:
+        num = f.readlines()[0]
 
-    for (
-        i,
-        n,
-    ) in enumerate(num):
-        value = reduce((lambda x, y: x * y), map(int, (num[i : i + adjacent])))
+        max_v = 0
 
-        if value > max_v:
-            max_v = value
+        for (
+            i,
+            n,
+        ) in enumerate(num):
+            value = reduce((lambda x, y: x * y), map(int, (num[i: i + adjacent])))
 
-    return max_v
+            if value > max_v:
+                max_v = value
+
+        return max_v
 
 
 def problem_9(c: int = 1000) -> int:
@@ -152,7 +154,7 @@ def problem_10(num: int = 1999999) -> int:
     return ef.sum_primes(num)
 
 
-def problem_11(numbers: list = ed.get_problem_11_data()) -> int:
+def problem_11(numbers) -> int:
     """
     https://projecteuler.net/problem=11
     What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally)
@@ -196,7 +198,7 @@ def problem_12(expected_divs: int = 500) -> int:
     return int((n - 1) * n / 2)
 
 
-def problem_13(nums: list = ed.get_problem_13_data()) -> int:
+def problem_13(nums: list) -> int:
     """
     https://projecteuler.net/problem=13
     Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.
@@ -329,7 +331,7 @@ def problem_17() -> int:
     return sum(dic.values())
 
 
-def problem_18() -> int:
+def problem_18(numbers: list) -> int:
     """
     https://projecteuler.net/problem=18
     By starting at the top of the triangle below and moving to adjacent numbers on the row below,
@@ -360,31 +362,12 @@ def problem_18() -> int:
      63 66 04 68 89 53 67 30 73 16 69 87 40 31
     04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
     """
-    number = """\
-        75
-        95 64
-        17 47 82
-        18 35 87 10
-        20 04 82 47 65
-        19 01 23 75 03 34
-        88 02 77 73 07 63 67
-        99 65 04 28 06 16 70 92
-        41 41 26 56 83 40 80 70 33
-        41 48 72 33 47 32 37 16 94 29
-        53 71 44 65 25 43 91 52 97 51 14
-        70 11 33 28 77 73 17 78 39 68 17 57
-        91 71 52 38 17 14 91 43 58 50 27 29 48
-        63 66 04 68 89 53 67 30 73 16 69 87 40 31
-        04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"""
+    for i in range(1, len(numbers)):
+        numbers[i] = numbers[i]
+        numbers[i] = [int(x) for x in numbers[i]]
 
-    number = number.strip().split("\n")
-
-    for i in range(1, len(number)):
-        number[i] = number[i].strip().split(" ")
-        number[i] = [int(x) for x in number[i]]
-
-    number[0] = [75]
-    return int(ef.find_max_sum_path(number))
+    numbers[0] = [75]
+    return int(ef.find_max_sum_path(numbers))
 
 
 def problem_19() -> int:
@@ -440,7 +423,7 @@ def problem_21(limit: int = 10000) -> int:
     return int(sum(ef.find_amicable(limit)))
 
 
-def problem_22(names: list = ed.get_problem_22_data()) -> int:
+def problem_22(names: list) -> int:
     """
     https://projecteuler.net/problem=22
     Using data.get_problem_22_data(), begin by sorting it into alphabetical order.
@@ -605,16 +588,14 @@ def problem_27() -> int:
     """
 
 
-def problem_67():
+def problem_67(numbers: list) -> int:
     """
     https://projecteuler.net/problem=67
     Find the maximum total from top to bottom in get_problem_67_data() containing a triangle with one-hundred rows.
     """
-    number = ed.get_problem_67_data().strip().split("\n")
+    for i in range(1, len(numbers)):
+        numbers[i] = numbers[i]
+        numbers[i] = [int(x) for x in numbers[i]]
 
-    for i in range(1, len(number)):
-        number[i] = number[i].strip().split(" ")
-        number[i] = [int(x) for x in number[i]]
-
-    number[0] = [59]
-    return int(ef.find_max_sum_path(number))
+    numbers[0] = [59]
+    return int(ef.find_max_sum_path(numbers))

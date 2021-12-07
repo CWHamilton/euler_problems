@@ -11,7 +11,7 @@ def pytest_collection_modifyitems(config, items):
     :param items:
     :return:
     """
-    # --run_slow given in CLI.  Do not skip slow tests.
+    # --run-slow given in CLI.  Do not skip slow tests.
     if config.getoption("--run-slow"):
         return
     skip_slow = pytest.mark.skip(reason="Need --run-slow option to run")

@@ -9,11 +9,11 @@ They can also be run from terminal using pytest.
 
 `pytest -m euler`
 
-Add `-v` for more logging or `-q` for no logging.
+Add `-v` or `-vv` for more logging or `-q` for no logging.
 
 Use `--duration #` to list tests that take longer than # seconds to run.
 
 ### Slow Tests
 I have marked any problem that takes more than 2 seconds to run as slow.
 
-Use `--run_slow` to include those problems in the test run.
+Use `--run-slow` to include those problems in the test run.

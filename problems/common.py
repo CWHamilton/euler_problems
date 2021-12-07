@@ -1,6 +1,4 @@
 import math
-import random
-import string
 from collections import Counter
 from datetime import date
 from functools import lru_cache
@@ -96,11 +94,6 @@ def upper_value(num):
     if num < 6:
         return 100
     return math.ceil(num * (math.log(num) + math.log(math.log(num))))
-
-
-def generate_num(length: int = 1) -> int:
-    num = ""
-    return int(num.join(random.choice(string.digits) for i in range(length)))
 
 
 def convert_to_list(num: int) -> list:

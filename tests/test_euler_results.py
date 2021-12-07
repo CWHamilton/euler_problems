@@ -1,3 +1,5 @@
+import os
+
 import pytest
 
 import problems.euler as euler
@@ -87,11 +89,18 @@ class TestEulerResults:
 
     def test_problem_11(self):
         expected_value = 70600674
-        returned_value = euler.problem_11()
 
-        assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+        with open(os.path.join(os.getcwd(), "data", "problem_011.txt"), "r") as f:
+            numbers = [
+                [int(i) for i in _.split(" ")]
+                for _ in [_.strip() for _ in f.readlines()]
+            ]
+
+            returned_value = euler.problem_11(numbers)
+
+            assert (
+                expected_value == returned_value
+            ), f"Expected {expected_value}, got {returned_value} instead."
 
     @pytest.mark.slow
     def test_problem_12(self):
@@ -104,7 +113,11 @@ class TestEulerResults:
 
     def test_problem_13(self):
         expected_value = 5537376230
-        returned_value = euler.problem_13()
+
+        with open(os.path.join(os.getcwd(), "data", "problem_013.txt"), "r") as f:
+            numbers = [_ for _ in list(map(int, f))]
+
+        returned_value = euler.problem_13(numbers)
 
         assert (
             expected_value == returned_value
@@ -145,7 +158,14 @@ class TestEulerResults:
 
     def test_problem_18(self):
         expected_value = 1074
-        returned_value = euler.problem_18()
+
+        with open(os.path.join(os.getcwd(), "data", "problem_018.txt"), "r") as f:
+            numbers = [
+                [int(i) for i in _.split(" ") if _.split(" ")]
+                for _ in [_.strip() for _ in f.readlines()]
+            ]
+
+        returned_value = euler.problem_18(numbers)
 
         assert (
             expected_value == returned_value
@@ -178,7 +198,11 @@ class TestEulerResults:
 
     def test_problem_22(self):
         expected_value = 871198282
-        returned_value = euler.problem_22()
+
+        with open(os.path.join(os.getcwd(), "data", "problem_022.txt"), "r") as f:
+            names = [_ for _ in list(map(str, f))]
+
+        returned_value = euler.problem_22(names)
 
         assert (
             expected_value == returned_value
@@ -218,7 +242,14 @@ class TestEulerResults:
 
     def test_problem_67(self):
         expected_value = 7273
-        returned_value = euler.problem_67()
+
+        with open(os.path.join(os.getcwd(), "data", "problem_067.txt"), "r") as f:
+            numbers = [
+                [int(i) for i in _.split(" ") if _.split(" ")]
+                for _ in [_.strip() for _ in f.readlines()]
+            ]
+
+        returned_value = euler.problem_67(numbers)
 
         assert (
             expected_value == returned_value
