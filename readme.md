@@ -1,19 +1,16 @@
-# Project Euler
-Welcome to my Project Euler python practice.  
+# [Project Euler](https://projecteuler.net/about)
 
-You can find my solutions to euler problems in [the problems folder](problems/euler.py).
+Welcome to my Project Euler python practice. You can find my solutions to euler problems 
+in [the problems folder](problems/euler.py). They can also be run from terminal using pytest.
 
-They can also be run from terminal using pytest.
+The `expected_value` variable in [tests](tests/test_euler_results.py) is one I added after successfully verifying the
+number from Project Euler website.
 
-### Running Tests 
+### Running Tests
 
-`pytest -m euler`
+in terminal, use `pytest` command to run tests.
 
-Add `-v` or `-vv` for more logging or `-q` for no logging.
-
-Use `--duration #` to list tests that take longer than # seconds to run.
-
-### Slow Tests
-I have marked any problem that takes more than 2 seconds to run as slow.
-
-Use `--run-slow` to include those problems in the test run.
+    -v/-vv          | --verbose, Logs more information
+    -q              | --quiet, Logs no information
+    --duration n    | Records run times, if a number is included it will only record ones longer than n secods
+    --run-slow      | Runs tests that can take more than a few seconds to run

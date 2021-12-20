@@ -5,7 +5,11 @@ from functools import lru_cache
 from itertools import permutations as perm
 
 
-def prime_valuation(num):
+def prime_valuation(num: int):
+    """
+    :param num:
+    :return:
+    """
     prime = [True] * num
 
     for i in range(2, num):
@@ -16,22 +20,38 @@ def prime_valuation(num):
 
 
 def is_prime(num: int) -> bool:
-    if num != 1 or num != 0:
+    """
+    :param num:     Number to identify whether it is prime or not
+    :return:
+    >>> is_prime(4) -> False
+    >>> is_prime(5) -> True
+    """
+    if num not in [0, 1]:  # 0 and 1 are considered prime numbers, skip and return True
         for i in range(2, num):
             if num % i == 0:
-                return False
+                return False  # num has a divisor beyond 1 and itself and is therefore not prime, return False
         else:
-            return True
+            return True  # num has no divisors except 1 and itself, return True.
     else:
         return True
 
 
-def find_prime(num):
-    primes = list(prime_valuation(upper_value(num)))
-    return primes[num - 1]
+def find_prime(n: int) -> int:
+    """
+    :param n:     Returns the nth prime
+    :return:
+    >>> find_prime(n=4) -> 7  # (2, 3, 5, 7)
+    """
+    primes = list(prime_valuation(upper_value(n)))
+    return primes[n - 1]
 
 
 def sum_primes(num: int) -> int:
+    """
+    :param num:  Sum all of the primes from 1 to num
+    :return:
+    >>> sum_primes(num=10) --> 17  # (2+3+5+7)
+    """
     r, s = 0, [True] * num
 
     for p in range(2, num):
@@ -42,37 +62,41 @@ def sum_primes(num: int) -> int:
     return r
 
 
-def sieve(n):
+def sieve(limit: int) -> list:
     """
-    sieve of Eratosthenes
+    Sieve of Eratosthenes
     https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+
+    :param limit:       Finds all primes up to given limit
+    >>> sieve(limit=10) -> [2, 3, 5, 7]
     """
-    p = [True] * n
+    p = [True] * limit
     p[0] = False
     p[1] = False
-    for i in range(2, int(n ** 0.5 + 1)):
+    for i in range(2, int(limit ** 0.5 + 1)):
         index = i * 2
-        while index < n:
+        while index < limit:
             p[index] = False
             index = index + i
     prime = []
-    for i in range(n):
+    for i in range(limit):
         if p[i]:
             prime.append(i)
     return prime
 
 
-def power_less_than(num, multi):
+def power_less_than(num: int, multi: int):
+    """ """
     p = num
     while p < multi:
         p *= num
     return p // num
 
 
-def smallest_multiple(n: int) -> int:
-    multi = 1
-    for p in prime_valuation(n + 1):
-        multi *= power_less_than(p, n + 1)
+def smallest_multiple(n_min: int, n_max: int) -> int:
+    multi = n_min
+    for p in prime_valuation(n_max + 1):
+        multi *= power_less_than(p, n_max + 1)
     return multi
 
 
@@ -104,7 +128,7 @@ def convert_to_list(num: int) -> list:
     return digits
 
 
-def get_greatest_product_in_grid(numbers: list) -> int:
+def get_greatest_product_in_grid(grid: list[list[int]]) -> int:
     product_current = 0
 
     # diagonal-right
@@ -113,10 +137,10 @@ def get_greatest_product_in_grid(numbers: list) -> int:
 
     while index_outer < 17:
         for i in range(1, 18):
-            num1 = numbers[index_outer][index_inner]
-            num2 = numbers[index_outer + 1][index_inner + 1]
-            num3 = numbers[index_outer + 2][index_inner + 2]
-            num4 = numbers[index_outer + 3][index_inner + 3]
+            num1 = grid[index_outer][index_inner]
+            num2 = grid[index_outer + 1][index_inner + 1]
+            num3 = grid[index_outer + 2][index_inner + 2]
+            num4 = grid[index_outer + 3][index_inner + 3]
             product = num1 * num2 * num3 * num4
             if product_current < product:
                 product_current = product
@@ -130,10 +154,10 @@ def get_greatest_product_in_grid(numbers: list) -> int:
 
     while index_outer < 20:
         for i in range(1, 18):
-            num1 = numbers[index_outer][index_inner]
-            num2 = numbers[index_outer - 1][index_inner + 1]
-            num3 = numbers[index_outer - 2][index_inner + 2]
-            num4 = numbers[index_outer - 3][index_inner + 3]
+            num1 = grid[index_outer][index_inner]
+            num2 = grid[index_outer - 1][index_inner + 1]
+            num3 = grid[index_outer - 2][index_inner + 2]
+            num4 = grid[index_outer - 3][index_inner + 3]
             product = num1 * num2 * num3 * num4
             if product_current < product:
                 product_current = product
@@ -147,10 +171,10 @@ def get_greatest_product_in_grid(numbers: list) -> int:
 
     while index_outer < 20:
         for i in range(1, 18):
-            num1 = numbers[index_outer][index_inner]
-            num2 = numbers[index_outer][index_inner + 1]
-            num3 = numbers[index_outer][index_inner + 2]
-            num4 = numbers[index_outer][index_inner + 3]
+            num1 = grid[index_outer][index_inner]
+            num2 = grid[index_outer][index_inner + 1]
+            num3 = grid[index_outer][index_inner + 2]
+            num4 = grid[index_outer][index_inner + 3]
             product = num1 * num2 * num3 * num4
             if product_current < product:
                 product_current = product
@@ -164,10 +188,10 @@ def get_greatest_product_in_grid(numbers: list) -> int:
 
     while index_outer < 17:
         for i in range(1, 21):
-            num1 = numbers[index_outer][index_inner]
-            num2 = numbers[index_outer + 1][index_inner]
-            num3 = numbers[index_outer + 2][index_inner]
-            num4 = numbers[index_outer + 3][index_inner]
+            num1 = grid[index_outer][index_inner]
+            num2 = grid[index_outer + 1][index_inner]
+            num3 = grid[index_outer + 2][index_inner]
+            num4 = grid[index_outer + 3][index_inner]
             product = num1 * num2 * num3 * num4
             if product_current < product:
                 product_current = product

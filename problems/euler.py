@@ -1,38 +1,32 @@
-import os
 import re
 from functools import reduce
 
 import problems.common as ef
 
 
-def problem_1(total: int = 1000) -> int:
+def problem_1(num_1: int, num_2: int, limit: int) -> int:
     """
-    https://projecteuler.net/problem=1
-    Find the sum of all the multiples of 3 or 5 below 1000.
-    :param total:
+    :param num_1:   Number 1 to divide by
+    :param num_2:   Number 2 to divide by
+    :param limit:   Max limit to check for numbers that divide by num_1 and/or num_2
     :return:
     """
     r = 0
 
-    for i in range(total):
-        if i % 3 == 0 or i % 5 == 0:
+    for i in range(limit):
+        if i % num_1 == 0 or i % num_2 == 0:
             r += i
     return r
 
 
-def problem_2(exceed: int = 4000000) -> int:
+def problem_2(limit: int) -> int:
     """
-    https://projecteuler.net/problem=2
-    By considering the terms in the Fibonacci sequence whose values do not exceed four million,
-        find the sum of the even-valued terms.
-    :param exceed:
+    :param limit:   Max limit of numbers to check
     :return:
     """
-    a = 1
-    b = 1
-    r = 0
+    a, b, r = 1, 1, 0
 
-    while b <= exceed:
+    while b <= limit:
         c = b
         b = b + a
         a = c
@@ -43,10 +37,9 @@ def problem_2(exceed: int = 4000000) -> int:
     return r
 
 
-def problem_3(num: int = 600851475143) -> int:
+def problem_3(num: int) -> int:
     """
-    https://projecteuler.net/problem=3
-    What is the largest prime factor of the number 600851475143 ?
+    :param num:       Number to find the largest prime factor of
     :return:
     """
     i = 2
@@ -61,8 +54,6 @@ def problem_3(num: int = 600851475143) -> int:
 
 def problem_4() -> int:
     """
-    https://projecteuler.net/problem=4
-    Find the largest palindrome made from the product of two 3-digit numbers.
     :return:
     """
     p = []
@@ -76,65 +67,54 @@ def problem_4() -> int:
     return max(p)
 
 
-def problem_5(num: int = 20) -> int:
+def problem_5(n_min: int, n_max: int) -> int:
     """
-    https://projecteuler.net/problem=5
-    What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+    :param n_min:     Minimum multiplier
+    :param n_max:     Maximum multiplier
     :return:
     """
-    return ef.smallest_multiple(num)
+    return ef.smallest_multiple(n_min=n_min, n_max=n_max)
 
 
-def problem_6(num: int = 100) -> int:
+def problem_6(limit: int) -> int:
     """
-    https://projecteuler.net/problem=6
-    Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
+    :param limit:     Max number to count sums for
     :return:
     """
-    sum_squares = ef.sum_squares(num)
-    square_sums = ef.square_sum(num)
-    return square_sums - sum_squares
+    return ef.square_sum(limit) - ef.sum_squares(limit)
 
 
-def problem_7(num: int = 10001) -> int:
+def problem_7(num: int) -> int:
     """
-    https://projecteuler.net/problem=7
-    What is the 10001st prime number?
+    :param num:       Number of primes to count
     :return:
     """
     return ef.find_prime(num)
 
 
-def problem_8(adjacent: int = 13) -> int:
+def problem_8(num: str, adjacent: int) -> int:
     """
-    https://projecteuler.net/problem=8
-    Find the thirteen adjacent digits in the 1000-digit number that have the greatest product.
-        What is the value of this product?
-    :param: adjacent
+    :param num:         Number to check
+    :param adjacent:    Number of adjacent numbers to search for in num with greatest product
     :return:
+        >>> number, adj = 12345678, 3
+        >>>   -> (8*7*6)
+        >>>     -> 336
     """
-    with open(os.path.join(os.getcwd(), "data", "problem_008.txt"), "r") as f:
-        num = f.readlines()[0]
+    max_v = 0
 
-        max_v = 0
+    for (i, n) in enumerate(num):
+        value = reduce((lambda x, y: x * y), map(int, (num[i : i + adjacent])))
 
-        for (
-            i,
-            n,
-        ) in enumerate(num):
-            value = reduce((lambda x, y: x * y), map(int, (num[i: i + adjacent])))
+        if value > max_v:
+            max_v = value
 
-            if value > max_v:
-                max_v = value
-
-        return max_v
+    return max_v
 
 
-def problem_9(c: int = 1000) -> int:
+def problem_9(c: int) -> int:
     """
-    https://projecteuler.net/problem=9
-    There exists exactly one Pythagorean triplet for which a + b + c = 1000.
-        Find the product abc.
+    :param c:     Final value of what a + b + c should equal
     :return:
     """
     for num in range(1, c):
@@ -144,32 +124,32 @@ def problem_9(c: int = 1000) -> int:
                 return num * a * b
 
 
-def problem_10(num: int = 1999999) -> int:
+def problem_10(num: int) -> int:
     """
-    https://projecteuler.net/problem=10
-    Find the sum of all the primes below two million.
-    :param num:
+    :param num:     The number to find all primes below
     :return:
+        >>> ef.sum_primes(10)
+        >>>   -> sum(0, 1, 2, 3, 5, 7)
+        >>>     -> return 18
     """
     return ef.sum_primes(num)
 
 
-def problem_11(numbers) -> int:
+def problem_11(grid: list[list[int]]) -> int:
     """
-    https://projecteuler.net/problem=11
-    What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally)
-        in a 20×20 grid?
-    :param numbers:
+    :param grid:    A list of numbers to check for adjacent values
     :return:
     """
-    return ef.get_greatest_product_in_grid(numbers)
+    return ef.get_greatest_product_in_grid(grid)
 
 
-def problem_12(expected_divs: int = 500) -> int:
+def problem_12(expected_divs: int) -> int:
     """
-    https://projecteuler.net/problem=12
-    What is the value of the first triangle number to have over five hundred divisors?
+    :param expected_divs:   Number of divisors expected in a number triangle
     :return:
+        >>> e_divs = 6
+        >>> triangle = {1: [1], 3: [1,3], 6: [1,2,3,6]}
+        >>>   -> 6
     """
     n = 28
     while True:
@@ -198,34 +178,22 @@ def problem_12(expected_divs: int = 500) -> int:
     return int((n - 1) * n / 2)
 
 
-def problem_13(nums: list) -> int:
+def problem_13(nums: list, num_digits: int) -> int:
     """
-    https://projecteuler.net/problem=13
-    Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.
-    :param nums:
+    :param nums:        List of numbers to sum
+    :param num_digits:  Number of digits to return from the sum of nums
     :return:
     """
     num_sum = 0
     for i in nums:
         num_sum += i
 
-    return int(str(num_sum)[0:10])
+    return int(str(num_sum)[0:num_digits])
 
 
-def problem_14(limit: int = 1000000):
+def problem_14(limit: int):
     """
-    The following iterative sequence is defined for the set of positive integers:
-
-        n → n/2 (n is even)
-        n → 3n + 1 (n is odd)
-
-    Using the rule above and starting with 13, we generate the following sequence:
-        13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1
-
-    It can be seen that this sequence (starting at 13 and finishing at 1) contains 10 terms. Although it has not been proved yet (Collatz Problem), it is thought that all starting numbers finish at 1.
-
-    Which starting number, under one million, produces the longest chain?
-    :param: limit
+    :param limit:   Max value to search through
     :return:
     """
     dic = {n: 0 for n in range(1, limit)}
@@ -250,39 +218,37 @@ def problem_14(limit: int = 1000000):
     return list(dic.values()).index(max(dic.values())) + 1
 
 
-def problem_15(length: int = 20, width: int = 20) -> int:
+def problem_15(length: int, width: int) -> int:
     """
-    https://projecteuler.net/problem=15
-    How many such routes are there through a 20×20 grid?
+    :param length:  X axis of grid
+    :param width:   Y axis of grid
     :return:
     """
-    return ef.get_path_results(length, width)
+    return ef.get_path_results(length=length, width=width)
 
 
-def problem_16(num: int = 1000) -> int:
+def problem_16(num: int, power: int) -> int:
     """
-    https://projecteuler.net/problem=16
-    What is the sum of the digits of the number 2^1000?
+    :param num:     Starting number
+    :param power:   Exponential number
+    :return:
+        >>> sum([str(2**4), str(3**2)])
+        >>>   -> sum([1, 6, 9])
+        >>>     -> 18
     """
-    r = 0
-    for i in str(2 ** num):
-        r += int(i)
-
-    return r
+    return sum([int(i) for i in str(num ** power)])
 
 
 def problem_17() -> int:
     """
-    https://projecteuler.net/problem=17
-    If all the numbers from 1 to 1000 (one thousand) inclusive were written out in words,
-        how many letters would be used?
-    NOTE:
-        Do not count spaces or hyphens.
-        For example, 342 (three hundred and forty-two) contains 23 letters and
-            115 (one hundred and fifteen) contains 20 letters.
-        The use of "and" when writing out numbers is in compliance with British usage.
+    :return:
+        >>> sum("ninetynine", "onehundred", "onehundredandone")
+        >>>   -> sum([10, 10, 16])
+        >>>     -> 36
     """
     dic = {n: 0 for n in range(0, 1001)}
+
+    # Set all unique words used in all numbers from 'zero' to 'one thousand'
     dic[0] = 0  # ''
     dic[1] = len("one")
     dic[2] = len("two")
@@ -333,73 +299,35 @@ def problem_17() -> int:
 
 def problem_18(numbers: list) -> int:
     """
-    https://projecteuler.net/problem=18
-    By starting at the top of the triangle below and moving to adjacent numbers on the row below,
-        the maximum total from top to bottom is 23.
-
-                   3
-                  7 4
-                 2 4 6
-                8 5 9 3
-
-    That is, 3 + 7 + 4 + 9 = 23.
-
-    Find the maximum total from top to bottom of the triangle below:
-
-                  75
-                 95 64
-                17 47 82
-               18 35 87 10
-              20 04 82 47 65
-             19 01 23 75 03 34
-            88 02 77 73 07 63 67
-           99 65 04 28 06 16 70 92
-          41 41 26 56 83 40 80 70 33
-         41 48 72 33 47 32 37 16 94 29
-        53 71 44 65 25 43 91 52 97 51 14
-       70 11 33 28 77 73 17 78 39 68 17 57
-      91 71 52 38 17 14 91 43 58 50 27 29 48
-     63 66 04 68 89 53 67 30 73 16 69 87 40 31
-    04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
+    :param numbers:     Numbers triangle
+    :return:
     """
     for i in range(1, len(numbers)):
         numbers[i] = numbers[i]
         numbers[i] = [int(x) for x in numbers[i]]
 
     numbers[0] = [75]
+
     return int(ef.find_max_sum_path(numbers))
 
 
-def problem_19() -> int:
+def problem_19(start_year: int, end_year: int) -> int:
     """
-    https://projecteuler.net/problem=19
-    You are given the following information, but you may prefer to do some research for yourself.
-
-        * 1 Jan 1900 was a Monday.
-        * Thirty days has September,
-            April, June and November.
-            All the rest have thirty-one,
-            Saving February alone,
-            Which has twenty-eight, rain or shine.
-            And on leap years, twenty-nine.
-        * A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.
-
-    How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
+    :param start_year:  Earliest Year
+    :param end_year:    End Year
+    :return:
+        >>> ef.get_num_dates(start_year=2000, end_year=2001)
+        >>>   -> int("<number of Sundays in the year 2000>")
     """
-    return int(str(ef.get_num_dates(1901, 2001)))
+    return int(str(ef.get_num_dates(start_year=start_year, end_year=end_year)))
 
 
-def problem_20() -> int:
+def problem_20(number: int) -> int:
     """
-    https://projecteuler.net/problem=20
-    n! means n × (n − 1) × ... × 3 × 2 × 1
-
-    For example, 10! = 10 × 9 × ... × 3 × 2 × 1 = 3628800,
-    and the sum of the digits in the number 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.
-
-    Find the sum of the digits in the number 100!
+    :param number:  Int value to get factorial for
+    :return:
     """
-    factorial = str(ef.factorial(100))
+    factorial = str(ef.factorial(number))
     r = 0
     for i in factorial:
         r += int(i)
@@ -407,33 +335,18 @@ def problem_20() -> int:
     return r
 
 
-def problem_21(limit: int = 10000) -> int:
+def problem_21(limit: int) -> int:
     """
-    https://projecteuler.net/problem=21
-    Let d(n) be defined as the sum of proper divisors of n (numbers less than n which divide evenly into n).
-    If d(a) = b and d(b) = a, where a ≠ b, then a and b are an amicable pair and each of a and b are called
-        amicable numbers.
-
-    For example:
-        The proper divisors of 220 are 1, 2, 4, 5, 10, 11, 20, 22, 44, 55 and 110; therefore d(220) = 284.
-        The proper divisors of 284 are 1, 2, 4, 71 and 142; so d(284) = 220.
-
-    Evaluate the sum of all the amicable numbers under 10000.
+    :param limit:   Find list of amicable numbers up to limit
+    :return:
     """
-    return int(sum(ef.find_amicable(limit)))
+    return int(sum(ef.find_amicable(limit=limit)))
 
 
 def problem_22(names: list) -> int:
     """
-    https://projecteuler.net/problem=22
-    Using data.get_problem_22_data(), begin by sorting it into alphabetical order.
-        Then working out the alphabetical value for each name,
-        multiply this value by its alphabetical position in the list to obtain a name score.
-
-    For example, when the list is sorted into alphabetical order, COLIN, which is worth 3 + 15 + 12 + 9 + 14 = 53,
-        is the 938th name in the list. So, COLIN would obtain a score of 938 × 53 = 49714.
-
-    What is the total of all the name scores in the file?
+    :param names:   List of names to use
+    :return:
     """
     dic = {
         "A": 1,
@@ -478,60 +391,43 @@ def problem_22(names: list) -> int:
     return r
 
 
-def problem_23():
+def problem_23(limit: int) -> int:
     """
-    https://projecteuler.net/problem=23
-    A perfect number is a number for which the sum of its proper divisors is exactly equal to the number. For example:
-        The sum of the proper divisors of 28 would be 1 + 2 + 4 + 7 + 14 = 28, which means that 28 is a perfect number.
-        A number n is called deficient if the sum of its proper divisors is less than n
-            and it is called abundant if this sum exceeds n.
-    As 12 is the smallest abundant number, 1 + 2 + 3 + 4 + 6 = 16, the smallest number that can be written
-        as the sum of two abundant numbers is 24. By mathematical analysis, it can be shown that all integers greater
-        than 28123 can be written as the sum of two abundant numbers. However, this upper limit cannot be reduced any
-        further by analysis even though it is known that the greatest number that cannot be expressed as the sum of two
-        abundant numbers is less than this limit.
-    Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.
+    :param limit:       Max number that can't be written as the sum of two abundant numbers
+    :return:
     """
-    abundant_limit = 28123
-    abundant_nums = []
+    ab_limit = limit
+    ab_nums = [i for i in range(12, ab_limit) if sum(ef.get_divisors(i)) > i]
 
-    for i in range(12, abundant_limit):
-        if sum(ef.get_divisors(i)) > i:
-            abundant_nums.append(i)
+    non_abundant_sums = [x for x in range(ab_limit)]
 
-    non_abundant_sums = [x for x in range(abundant_limit)]
-
-    for i in range(len(abundant_nums)):
-        for j in range(i, abundant_limit):
-            if abundant_nums[i] + abundant_nums[j] < abundant_limit:
-                non_abundant_sums[abundant_nums[i] + abundant_nums[j]] = 0
+    for i in range(len(ab_nums)):
+        for j in range(i, ab_limit):
+            if ab_nums[i] + ab_nums[j] < ab_limit:
+                non_abundant_sums[ab_nums[i] + ab_nums[j]] = 0
             else:
                 break
 
     return sum(non_abundant_sums)
 
 
-def problem_24(perm: int = 1000000, chars: str = "0123456789") -> int:
+def problem_24(perm: int, chars: str) -> int:
     """
-    https://projecteuler.net/problem=24
-    A permutation is an ordered arrangement of objects. For example, 3124 is one possible permutation of the digits
-    1, 2, 3 and 4. If all of the permutations are listed numerically or alphabetically, we call it lexicographic order.
-    The lexicographic permutations of 0, 1 and 2 are: 012   021   102   120   201   210
-    What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
+    :param perm:        Permutation index to find
+    :param chars:       Number of characters to use
+    :return:
     """
     return int(ef.get_permutations(perm, chars))
 
 
-def problem_25(limit: int = 1000) -> int:
+def problem_25(count) -> int:
     """
-    https://projecteuler.net/problem=25
-    What is the index of the first term in the Fibonacci sequence to contain 1000 digits?
+    :param count:       Once hit number of characters is hit, return index
+    :return:
     """
-    a = 1
-    b = 1
-    c = 2
+    a, b, c = 1, 1, 2
     fib_list = [a, b, c]
-    while len(str(b)) < limit:
+    while len(str(b)) < count:
         b = a + b
         a = c
         c = b
@@ -540,21 +436,20 @@ def problem_25(limit: int = 1000) -> int:
     return len(fib_list) - 1
 
 
-def problem_26(div: int = 1000):
+def problem_26(limit: int) -> int:
     """
-    https://projecteuler.net/problem=26
-    Find the value of d < 1000 for which 1/d contains the longest recurring cycle in its decimal fraction part.
+    :param limit:       Max value to search
+    :return:
     """
-
     primes = ef.sieve(1000)
-    d = {n: 0 for n in range(1, div)}
+    d = {n: 0 for n in range(1, limit)}
 
     d[3] = 1
 
     for i in primes[3:]:
         d[i] = len(ef.recurring_decimal(i))
 
-    for i in range(6, div):
+    for i in range(6, limit):
         if not d[i]:
             if i % 2 != 0 != i % 5:
                 for j in primes:
@@ -575,23 +470,13 @@ def problem_26(div: int = 1000):
 
 
 def problem_27() -> int:
-    """
-    Considering quadratics of the form:
-
-        n2+an+b, where |a|<1000 and |b|≤1000
-
-        where |n| is the modulus/absolute value of n
-            e.g. |11|=11 and |−4|=4
-
-    Find the product of the coefficients, a and b, for the quadratic expression that produces the maximum number of
-        primes for consecutive values of n, starting with n=0.
-    """
+    pass
 
 
 def problem_67(numbers: list) -> int:
     """
-    https://projecteuler.net/problem=67
-    Find the maximum total from top to bottom in get_problem_67_data() containing a triangle with one-hundred rows.
+    :param numbers:     Numbers triangle
+    :return:
     """
     for i in range(1, len(numbers)):
         numbers[i] = numbers[i]
