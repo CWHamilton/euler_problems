@@ -89,7 +89,7 @@ def problem_7(num: int) -> int:
     :param num:       Number of primes to count
     :return:
     """
-    return ef.find_prime(num)
+    return ef.find_nth_prime(num)
 
 
 def problem_8(num: str, adjacent: int) -> int:
@@ -97,9 +97,9 @@ def problem_8(num: str, adjacent: int) -> int:
     :param num:         Number to check
     :param adjacent:    Number of adjacent numbers to search for in num with greatest product
     :return:
-        >>> number, adj = 12345678, 3
-        >>>   -> (8*7*6)
-        >>>     -> 336
+        number, adj = 12345678, 3
+          -> (8*7*6)
+            -> 336
     """
     max_v = 0
 
@@ -128,9 +128,9 @@ def problem_10(num: int) -> int:
     """
     :param num:     The number to find all primes below
     :return:
-        >>> ef.sum_primes(10)
-        >>>   -> sum(0, 1, 2, 3, 5, 7)
-        >>>     -> return 18
+        ef.sum_primes(10)
+            -> sum(0, 1, 2, 3, 5, 7)
+                -> return 18
     """
     return ef.sum_primes(num)
 
@@ -147,9 +147,8 @@ def problem_12(expected_divs: int) -> int:
     """
     :param expected_divs:   Number of divisors expected in a number triangle
     :return:
-        >>> e_divs = 6
-        >>> triangle = {1: [1], 3: [1,3], 6: [1,2,3,6]}
-        >>>   -> 6
+
+        problem_12(expected_divs=6) --> 6 ({1: [1], 3: [1,3], 6: [1,2,3,6]})
     """
     n = 28
     while True:
@@ -232,9 +231,8 @@ def problem_16(num: int, power: int) -> int:
     :param num:     Starting number
     :param power:   Exponential number
     :return:
-        >>> sum([str(2**4), str(3**2)])
-        >>>   -> sum([1, 6, 9])
-        >>>     -> 18
+
+        problem_16(num=2, power=4) --> 7 (sum(1, 6))
     """
     return sum([int(i) for i in str(num ** power)])
 
@@ -242,9 +240,8 @@ def problem_16(num: int, power: int) -> int:
 def problem_17() -> int:
     """
     :return:
-        >>> sum("ninetynine", "onehundred", "onehundredandone")
-        >>>   -> sum([10, 10, 16])
-        >>>     -> 36
+
+        sum("ninetynine", "onehundred", "onehundredandone") --> 36 (sum([10, 10, 16]))
     """
     dic = {n: 0 for n in range(0, 1001)}
 
@@ -316,8 +313,6 @@ def problem_19(start_year: int, end_year: int) -> int:
     :param start_year:  Earliest Year
     :param end_year:    End Year
     :return:
-        >>> ef.get_num_dates(start_year=2000, end_year=2001)
-        >>>   -> int("<number of Sundays in the year 2000>")
     """
     return int(str(ef.get_num_dates(start_year=start_year, end_year=end_year)))
 
@@ -327,12 +322,7 @@ def problem_20(number: int) -> int:
     :param number:  Int value to get factorial for
     :return:
     """
-    factorial = str(ef.factorial(number))
-    r = 0
-    for i in factorial:
-        r += int(i)
-
-    return r
+    return sum([int(i) for i in str(ef.factorial(number))])
 
 
 def problem_21(limit: int) -> int:
@@ -417,16 +407,17 @@ def problem_24(perm: int, chars: str) -> int:
     :param chars:       Number of characters to use
     :return:
     """
-    return int(ef.get_permutations(perm, chars))
+    return int(ef.get_permutations(permutation=perm, chars=chars))
 
 
-def problem_25(count) -> int:
+def problem_25(count: int) -> int:
     """
-    :param count:       Once hit number of characters is hit, return index
+    :param count:       Once number of characters is hit, return index
     :return:
     """
     a, b, c = 1, 1, 2
     fib_list = [a, b, c]
+
     while len(str(b)) < count:
         b = a + b
         a = c
@@ -441,7 +432,7 @@ def problem_26(limit: int) -> int:
     :param limit:       Max value to search
     :return:
     """
-    primes = ef.sieve(1000)
+    primes = ef.sieve(limit)
     d = {n: 0 for n in range(1, limit)}
 
     d[3] = 1
@@ -456,7 +447,7 @@ def problem_26(limit: int) -> int:
                     if i % j == 0:
                         num1 = d[j]
                         num2 = d[i / j]
-                        d[i] = ef.lcm(num2, num1)
+                        d[i] = ef.lowest_common_multiplier(num2, num1)
                         break
             else:
                 number = i
@@ -470,6 +461,7 @@ def problem_26(limit: int) -> int:
 
 
 def problem_27() -> int:
+    # TODO
     pass
 
 

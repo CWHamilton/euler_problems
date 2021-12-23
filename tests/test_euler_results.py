@@ -275,7 +275,7 @@ class TestEulerResults:
         What is the sum of the digits of the number 2^1000?
         """
         expected_value = 1366
-        returned_value = euler.problem_16(num, power)
+        returned_value = euler.problem_16(num=num, power=power)
 
         assert (
             expected_value == returned_value
@@ -374,8 +374,7 @@ class TestEulerResults:
             expected_value == returned_value
         ), f"Expected {expected_value}, got {returned_value} instead."
 
-    @pytest.mark.slow
-    @pytest.mark.parametrize("limit", [10000])
+    @pytest.mark.parametrize("limit", [8000])
     def test_problem_21(self, limit):
         """
         https://projecteuler.net/problem=21
@@ -475,6 +474,7 @@ class TestEulerResults:
             expected_value == returned_value
         ), f"Expected {expected_value}, got {returned_value} instead."
 
+    @pytest.mark.test
     @pytest.mark.parametrize("limit", [999])
     def test_problem_26(self, limit):
         """

@@ -1,14 +1,19 @@
 import math
 from collections import Counter
+from collections.abc import Iterable
 from datetime import date
 from functools import lru_cache
 from itertools import permutations as perm
 
 
-def prime_valuation(num: int):
+def prime_valuation(num: int) -> Iterable:
     """
-    :param num:
+    Evaluates all numbers from 0 to num and identifies whether they are prime
+
+    :param num:     Number to evaluate
     :return:
+                                   [0,    1,    2,    3,    4,     5,    6]
+        prime_valuation(num=6) --> [True, True, True, True, False, True, False]
     """
     prime = [True] * num
 
@@ -19,12 +24,15 @@ def prime_valuation(num: int):
                 prime[x] = False
 
 
-def is_prime(num: int) -> bool:
+def identify_prime(num: int) -> bool:
     """
+    Identifies whether a specific number is prime
+
     :param num:     Number to identify whether it is prime or not
     :return:
-    >>> is_prime(4) -> False
-    >>> is_prime(5) -> True
+
+        is_prime(4) --> False
+        is_prime(5) --> True
     """
     if num not in [0, 1]:  # 0 and 1 are considered prime numbers, skip and return True
         for i in range(2, num):
@@ -36,28 +44,35 @@ def is_prime(num: int) -> bool:
         return True
 
 
-def find_prime(n: int) -> int:
+def find_nth_prime(num: int) -> int:
     """
-    :param n:     Returns the nth prime
+    Loops through all primes and returns the nth prime value
+
+    :param num:     Returns the nth prime
     :return:
-    >>> find_prime(n=4) -> 7  # (2, 3, 5, 7)
+
+        find_prime(n=4) --> [2, 3, 5, 7] --> 7
     """
-    primes = list(prime_valuation(upper_value(n)))
-    return primes[n - 1]
+    print(upper_bound_nth_prime(num))
+    primes = list(prime_valuation(upper_bound_nth_prime(num)))
+    return primes[num - 1]
 
 
-def sum_primes(num: int) -> int:
+def sum_primes(limit: int) -> int:
     """
-    :param num:  Sum all of the primes from 1 to num
+    Sum all of the primes from 0 to limit
+
+    :param limit:
     :return:
-    >>> sum_primes(num=10) --> 17  # (2+3+5+7)
-    """
-    r, s = 0, [True] * num
 
-    for p in range(2, num):
+        sum_primes(num=10) --> sum[2, 3, 5, 7] --> 17
+    """
+    r, s = 0, [True] * limit
+
+    for p in range(2, limit):
         if s[p]:
             r += p
-            for i in range(p * p, num, p):
+            for i in range(p * p, limit, p):
                 s[i] = False
     return r
 
@@ -68,67 +83,102 @@ def sieve(limit: int) -> list:
     https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
 
     :param limit:       Finds all primes up to given limit
-    >>> sieve(limit=10) -> [2, 3, 5, 7]
+    :return:
+
+            sieve(limit=10) --> [2, 3, 5, 7]
     """
     p = [True] * limit
-    p[0] = False
-    p[1] = False
+    p[0], p[1] = False, False
+
     for i in range(2, int(limit ** 0.5 + 1)):
         index = i * 2
         while index < limit:
             p[index] = False
             index = index + i
-    prime = []
-    for i in range(limit):
-        if p[i]:
-            prime.append(i)
-    return prime
+
+    return [i for i in range(limit) if p[i]]
 
 
-def power_less_than(num: int, multi: int):
-    """ """
+def power_less_than(num: int, limit: int) -> int:
+    """
+    Returns the lowest num**n product under limit
+
+    :param num:
+    :param limit:
+    :return:
+
+        power_less_than(num=2, limit=20) --> 16 (2**4 = 16, highest without going over 20)
+        power_less_than(num=2, limit=40) --> 32 (2**5 = 32, highest without going over 40)
+        power_less_than(num=3, limit=20) --> 9  (3**2 =  9, highest without going over 20)
+        power_less_than(num=3, limit=30) --> 27 (3**3 = 27, highest without going over 30)
+    """
     p = num
-    while p < multi:
+    while p < limit:
         p *= num
     return p // num
 
 
 def smallest_multiple(n_min: int, n_max: int) -> int:
+    """
+    Returns the smallest number that is evenly divisible by all of the numbers between n_min and n_max
+
+    :param n_min:   Minimum value
+    :param n_max:   Maximum value
+    :return:
+
+        smallest_multiple(n_min=1, n_max=4) --> 12 (first number divisible by 1, 2, 3, 4)
+        smallest_multiple(n_min=2, n_max=5) --> 60 (first number divisible by 2, 3, 4, 5)
+    """
     multi = n_min
     for p in prime_valuation(n_max + 1):
         multi *= power_less_than(p, n_max + 1)
     return multi
 
 
-def sum_squares(num: int) -> int:
-    r = 0
-    for i in range(num):
-        r += i ** 2
-    return r
+def sum_squares(limit: int) -> int:
+    """
+    Sums all square values in range 0 > limit
+
+    :param limit:     Range to use
+    :return:
+
+        sum_squares(limit=3) --> 17 (sum[0**2, 1**2, 2**2, 3**2])
+    """
+    return sum([i ** 2 for i in range(limit)])
 
 
-def square_sum(num: int) -> int:
-    r = 0
-    for i in range(num):
-        r = r + i
-    return r ** 2
+def square_sum(limit: int) -> int:
+    """
+    Sums a range and returns the squared value
+
+    :param limit:   Range to use
+    :return:
+
+        square_sum(limit=5) --> 100 (sum[0, 1, 2, 3, 4] ** 2)
+    """
+    return sum([i for i in range(limit)]) ** 2
 
 
-def upper_value(num):
+def upper_bound_nth_prime(num: int) -> int:
+    """
+    There is a known upper bound to prime.  This method returns the upper bound value for num
+    https://math.stackexchange.com/questions/1270814/bounds-for-n-th-prime
+
+    :param num:     Number to return upper bounds for
+    :return:
+    """
     if num < 6:
         return 100
     return math.ceil(num * (math.log(num) + math.log(math.log(num))))
 
 
-def convert_to_list(num: int) -> list:
-    digits = []
-    for i in str(num):
-        digits.append(i)
-
-    return digits
-
-
 def get_greatest_product_in_grid(grid: list[list[int]]) -> int:
+    """
+    Will find the greatest product of four adjacent numbers in a 20x20 grid
+
+    :param grid:    Grid to search through
+    :return:
+    """
     product_current = 0
 
     # diagonal-right
@@ -203,7 +253,15 @@ def get_greatest_product_in_grid(grid: list[list[int]]) -> int:
 
 
 def get_divisors(num: int) -> list:
-    divs = [1]
+    """
+    Returns all divisors for a number
+
+    :param num:
+    :return:
+
+        get_divisors(num=6) --> [1, 2, 3, 6]
+    """
+    divs = [1]  # 1 will always be a divisor
 
     for i in range(2, int(math.sqrt(num)) + 1):
         if num % i == 0:
@@ -215,7 +273,14 @@ def get_divisors(num: int) -> list:
 @lru_cache(maxsize=None)
 def get_path_results(length: int, width: int) -> int:
     """
-    Return max number of routes from (x, y) to (l, w) in a grid.
+    Return max number of routes from (0, 0) to (l, w) in a grid.
+
+    :param length:  Grid length
+    :param width:   Grid width
+    :return:
+
+        get_path_results(length: 2, width: 2) --> 6
+        https://projecteuler.net/project/images/p015.png
     """
     if length > width:
         return get_path_results(width, length)
@@ -238,6 +303,15 @@ def find_max_sum_path(nums: list) -> int:
 
 
 def get_num_dates(start_year: int, end_year: int) -> Counter:
+    """
+    Returns the number of times Sunday fell on the 1st of the month in a given set of years
+
+    :param start_year:  Year to start search
+    :param end_year:    Last year to search
+    :return:
+
+        get_num_dates(start_year=2000, end_year=2001) --> 1 (int("<number of Sundays in the year 2000 that are on the 1st of the month>"))
+    """
     counter = Counter()
 
     for year in range(start_year, end_year):
@@ -249,14 +323,32 @@ def get_num_dates(start_year: int, end_year: int) -> Counter:
 
 
 def factorial(num: int) -> int:
+    """
+    Returns the product of all positive integers less than or equal to given num.
+
+    :param num:     num!
+    :return:
+
+        factorial(num=2) --> 2
+        factorial(num=4) --> 24
+        factorial(num=8) --> 40320
+    """
     return math.factorial(num)
 
 
 def find_amicable(limit: int) -> list:
-    primes = []
-    for i in range(limit):
-        if is_prime(i):
-            primes.append(i)
+    """
+    Returns list of amicable numbers
+    Amicable numbers are two different numbers where the sum of their divisors equals the other number, eg:
+        220 sum[1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110] = 284
+        284 sum[1, 2, 4, 71, 142] = 220
+
+    :param limit:   Max number to check for amicable
+    :return:
+
+        find_amicable(limit=1500) --> [220, 284, 1210, 1184]
+    """
+    primes = [i for i in range(limit) if identify_prime(i)]
     amicable = []
     checked = []
 
@@ -274,10 +366,27 @@ def find_amicable(limit: int) -> list:
 
 
 def get_permutations(permutation: int, chars: str) -> str:
+    """
+    Finds all permutations of chars and returns the permutation index
+
+    :param permutation:     Single indexed permutation to return
+    :param chars:           Characters to generate permutations with
+    :return:
+
+        get_permutations(permutation=3, chars="012") --> 102  ([012, 021, 102, 120, 201, 210][2])
+    """
     return "".join(list(perm(chars, 10))[permutation - 1])
 
 
-def recurring_decimal(div):
+def recurring_decimal(div: int) -> str:
+    """
+    Returns the recurring decimals for divisor as a string
+
+    :param div:     Divisor to return decimal values from
+    :return:
+
+        recurring_decimal(div=3)    --> 1 (0.33333...)
+    """
     if div < 10:
         dividend = 10
     elif 10 <= div < 100:
@@ -302,22 +411,37 @@ def recurring_decimal(div):
                     text += "0"
         if dividend == value:
             return text
+    return text
 
 
-def gcd(num1, num2):
+def greatest_common_denominator(num1: int, num2: int) -> int:
     """
-    Return greatest common denominator
+    Return greatest common denominator of two numbers
+
+    :param num1:    First number
+    :param num2:    Second number
+
+        greatest_common_denominator(num1=10, num2=20) --> 10  (10*2 = 20, 10*1=10)
+        greatest_common_denominator(num1=12, num2=18) --> 6   (6*2 = 12, 6*4 = 18)
     """
     r = 1
+
     while r != 0:
         r = num1 % num2
         num1 = num2
         num2 = r
+
     return num1
 
 
-def lcm(num1, num2):
+def lowest_common_multiplier(num1: int, num2: int) -> float:
     """
-    Return lowest common denominator
+    Return lowest common multiplier
+
+    :param num1:    First number
+    :param num2:    Second number
+
+        lowest_common_multiplier(num1=10, num2=20) --> 20  ((10*20)/10)
+        lowest_common_multiplier(num1=12, num2=18) --> 36  ((12*18)/6)
     """
-    return (num1 * num2) / gcd(num1, num2)
+    return (num1 * num2) / greatest_common_denominator(num1, num2)
