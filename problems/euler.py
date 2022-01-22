@@ -461,8 +461,44 @@ def problem_26(limit: int) -> int:
 
 
 def problem_27() -> int:
-    # TODO
+    # I don't know what half of those words mean.
     pass
+
+
+def problem_28(limit: int) -> int:
+    """
+    :param limit:       Max grid spiral size
+    :return:
+    """
+    # Last number in limit x limit spiral grid
+    numbers = limit * limit
+
+    # All values on a diagonal axis in a spiral grid are odd.  Can skip even numbers.
+    odd_numbers = range(1, numbers + 1, 2)
+
+    """
+    The odd values on the diagonal axis follow a pattern of skipping numbers.
+    Number of skipped values between each value: 
+        0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4, etc.
+    The number of skipped values increases every 4 digits.
+    """
+    i, skip, solution = 0, 1, 1
+
+    while odd_numbers[i] != numbers:
+        for n in range(4):
+            i += skip
+            solution += odd_numbers[i]
+        skip += 1
+
+    return solution
+
+
+def problem_29(num: int) -> int:
+    """
+    :param num:       Number of values to search through for a^b where a and b are range(2, num+1)
+    :return:
+    """
+    return len(set([a ** b for b in range(2, num + 1) for a in range(2, num + 1)]))
 
 
 def problem_67(numbers: list) -> int:
