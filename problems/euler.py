@@ -8,7 +8,7 @@ def problem_1(num_1: int, num_2: int, limit: int) -> int:
     """
     :param num_1:   Number 1 to divide by
     :param num_2:   Number 2 to divide by
-    :param limit:   Max limit to check for numbers that divide by num_1 and/or num_2
+    :param limit:   Maximum limit to check for numbers that divide by num_1 and/or num_2
     :return:
     """
     r = 0
@@ -78,7 +78,7 @@ def problem_5(n_min: int, n_max: int) -> int:
 
 def problem_6(limit: int) -> int:
     """
-    :param limit:     Max number to count sums for
+    :param limit:     Maximum number to count sums for
     :return:
     """
     return ef.square_sum(limit) - ef.sum_squares(limit)
@@ -95,7 +95,7 @@ def problem_7(num: int) -> int:
 def problem_8(num: str, adjacent: int) -> int:
     """
     :param num:         Number to check
-    :param adjacent:    Number of adjacent numbers to search for in num with greatest product
+    :param adjacent:    Number of adjacent numbers to search for in num with the greatest product
     :return:
         number, adj = 12345678, 3
           -> (8*7*6)
@@ -192,7 +192,7 @@ def problem_13(nums: list, num_digits: int) -> int:
 
 def problem_14(limit: int):
     """
-    :param limit:   Max value to search through
+    :param limit:   Maximum value to search through
     :return:
     """
     dic = {n: 0 for n in range(1, limit)}
@@ -234,7 +234,7 @@ def problem_16(num: int, power: int) -> int:
 
         problem_16(num=2, power=4) --> 7 (sum(1, 6))
     """
-    return sum([int(i) for i in str(num ** power)])
+    return sum([int(i) for i in str(num**power)])
 
 
 def problem_17() -> int:
@@ -383,7 +383,7 @@ def problem_22(names: list) -> int:
 
 def problem_23(limit: int) -> int:
     """
-    :param limit:       Max number that can't be written as the sum of two abundant numbers
+    :param limit:       Maximum number that can't be written as the sum of two abundant numbers
     :return:
     """
     ab_limit = limit
@@ -498,7 +498,54 @@ def problem_29(num: int) -> int:
     :param num:       Number of values to search through for a^b where a and b are range(2, num+1)
     :return:
     """
-    return len(set([a ** b for b in range(2, num + 1) for a in range(2, num + 1)]))
+    return len(set([a**b for b in range(2, num + 1) for a in range(2, num + 1)]))
+
+
+def problem_30(power: int) -> int:
+    """
+    :param power:       x^power to check
+    :return:
+    """
+    return sum(
+        [
+            i
+            for i in range(2, power * 9**power + 1)
+            if sum(int(x) ** power for x in str(i)) == i
+        ]
+    )
+
+
+def problem_31(coins: list, target: int) -> int:
+    """
+    :param coins:       Values to combine to equal check
+    :param target:      Value to hit when adding coins
+    :return:
+    """
+    solution = [1] + [0] * target
+
+    for coin in coins:
+        for i in range(coin, target + 1):
+            solution[i] += solution[i - coin]
+
+    return solution[target]
+
+
+def problem_32() -> int:
+    """
+    :return:
+    """
+    solution = set()
+    check = "123456789"
+    for i in range(1, int(check)):
+        for j in range(1, int(check)):
+            s = str(i) + str(j) + str(i + j)
+            if len(s) == 9 and set(s) == check:
+                solution.add(i * j)
+
+    print(solution)
+    print(sum(solution))
+
+    return sum(solution)
 
 
 def problem_67(numbers: list) -> int:

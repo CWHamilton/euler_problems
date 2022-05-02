@@ -20,7 +20,7 @@ def prime_valuation(num: int) -> Iterable:
     for i in range(2, num):
         if prime[i]:
             yield i
-            for x in range(i ** 2, num, i):
+            for x in range(i**2, num, i):
                 prime[x] = False
 
 
@@ -60,7 +60,7 @@ def find_nth_prime(num: int) -> int:
 
 def sum_primes(limit: int) -> int:
     """
-    Sum all of the primes from 0 to limit
+    Sum all the primes from 0 to limit
 
     :param limit:
     :return:
@@ -90,7 +90,7 @@ def sieve(limit: int) -> list:
     p = [True] * limit
     p[0], p[1] = False, False
 
-    for i in range(2, int(limit ** 0.5 + 1)):
+    for i in range(2, int(limit**0.5 + 1)):
         index = i * 2
         while index < limit:
             p[index] = False
@@ -120,7 +120,7 @@ def power_less_than(num: int, limit: int) -> int:
 
 def smallest_multiple(n_min: int, n_max: int) -> int:
     """
-    Returns the smallest number that is evenly divisible by all of the numbers between n_min and n_max
+    Returns the smallest number that is evenly divisible by all the numbers between n_min and n_max
 
     :param n_min:   Minimum value
     :param n_max:   Maximum value
@@ -144,7 +144,7 @@ def sum_squares(limit: int) -> int:
 
         sum_squares(limit=3) --> 17 (sum[0**2, 1**2, 2**2, 3**2])
     """
-    return sum([i ** 2 for i in range(limit)])
+    return sum([i**2 for i in range(limit)])
 
 
 def square_sum(limit: int) -> int:
@@ -338,7 +338,7 @@ def factorial(num: int) -> int:
 
 def find_amicable(limit: int) -> list:
     """
-    Returns list of amicable numbers
+    Returns list of amicable numbers.
     Amicable numbers are two different numbers where the sum of their divisors equals the other number, eg:
         220 sum[1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110] = 284
         284 sum[1, 2, 4, 71, 142] = 220

@@ -529,7 +529,6 @@ class TestEulerResults:
             expected_value == returned_value
         ), f"Expected {expected_value}, got {returned_value} instead."
 
-    @pytest.mark.test
     @pytest.mark.parametrize("num", [100])
     def test_problem_29(self, num):
         """
@@ -549,6 +548,71 @@ class TestEulerResults:
         """
         expected_value = 9183
         returned_value = euler.problem_29(num=num)
+
+        assert (
+            expected_value == returned_value
+        ), f"Expected {expected_value}, got {returned_value} instead."
+
+    @pytest.mark.parametrize("power", [5])
+    def test_problem_30(self, power):
+        """
+        https://projecteuler.net/problem=30
+
+        Surprisingly there are only three numbers that can be written as the sum of fourth powers of their digits:
+
+            1634 = 1^4 + 6^4 + 3^4 + 4^4
+            8208 = 8^4 + 2^4 + 0^4 + 8^4
+            9474 = 9^4 + 4^4 + 7^4 + 4^4
+
+            As 1 = 1^4 is not a sum it is not included.
+
+        The sum of these numbers is 1634 + 8208 + 9474 = 19316.
+
+        Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.
+        """
+        expected_value = 443839
+        returned_value = euler.problem_30(power=power)
+
+        assert (
+            expected_value == returned_value
+        ), f"Expected {expected_value}, got {returned_value} instead."
+
+    @pytest.mark.parametrize("coins, check", [([1, 2, 5, 10, 20, 50, 100, 200], 200)])
+    def test_problem_31(self, coins, check):
+        """
+        https://projecteuler.net/problem=31
+
+        In the United Kingdom the currency is made up of pound (£) and pence (p). There are eight coins in general circulation:
+
+            1p, 2p, 5p, 10p, 20p, 50p, £1 (100p), and £2 (200p).
+
+        It is possible to make £2 in the following way:
+
+            1×£1 + 1×50p + 2×20p + 1×5p + 1×2p + 3×1p
+
+        How many ways can £2 be made using any number of coins?
+        """
+        expected_value = 73682
+        returned_value = euler.problem_31(coins=coins, target=check)
+
+        assert (
+            expected_value == returned_value
+        ), f"Expected {expected_value}, got {returned_value} instead."
+
+    @pytest.mark.test
+    def test_problem_32(self):
+        """
+        https://projecteuler.net/problem=32
+
+        We shall say that an n-digit number is pandigital if it makes use of all the digits 1 to n exactly once; for example, the 5-digit number, 15234, is 1 through 5 pandigital.
+
+        The product 7254 is unusual, as the identity, 39 × 186 = 7254, containing multiplicand, multiplier, and product is 1 through 9 pandigital.
+
+        Find the sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital.
+        HINT: Some products can be obtained in more than one way so be sure to only include it once in your sum.
+        """
+        expected_value = 45228
+        returned_value = euler.problem_32()
 
         assert (
             expected_value == returned_value
