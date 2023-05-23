@@ -6,14 +6,23 @@ from functools import lru_cache
 from itertools import permutations as perm
 
 
+"""
+Some of these common methods will only have use in one test, but may be used in future.  
+Values in those methods might be slightly more hard-coded than I'd like, but they so far serve their purpose.
+"""
+
+
 def prime_valuation(num: int) -> Iterable:
     """
     Evaluates all numbers from 0 to num and identifies whether they are prime
 
     :param num:     Number to evaluate
     :return:
-                                   [0,    1,    2,    3,    4,     5,    6]
-        prime_valuation(num=6) --> [True, True, True, True, False, True, False]
+
+    Examples:
+    ---------
+        >>> prime_valuation(6)
+            [True, True, True, True, False, True, False]
     """
     prime = [True] * num
 
@@ -31,8 +40,12 @@ def identify_prime(num: int) -> bool:
     :param num:     Number to identify whether it is prime or not
     :return:
 
-        is_prime(4) --> False
-        is_prime(5) --> True
+    Examples:
+    ---------
+        >>> identify_prime(4)
+            False
+        >>> identify_prime(5)
+            True
     """
     if num not in [0, 1]:  # 0 and 1 are considered prime numbers, skip and return True
         for i in range(2, num):
@@ -51,11 +64,12 @@ def find_nth_prime(num: int) -> int:
     :param num:     Returns the nth prime
     :return:
 
-        find_prime(n=4) --> [2, 3, 5, 7] --> 7
+    Examples:
+    ---------
+        >>> find_nth_prime(n=4)
+            7
     """
-    print(upper_bound_nth_prime(num))
-    primes = list(prime_valuation(upper_bound_nth_prime(num)))
-    return primes[num - 1]
+    return list(prime_valuation(upper_bound_nth_prime(num)))[num - 1]
 
 
 def sum_primes(limit: int) -> int:
@@ -65,7 +79,12 @@ def sum_primes(limit: int) -> int:
     :param limit:
     :return:
 
-        sum_primes(num=10) --> sum[2, 3, 5, 7] --> 17
+    Examples:
+    ---------
+        >>> sum_primes(num=10)
+            17
+        >>> sum_primes(2)
+            2
     """
     r, s = 0, [True] * limit
 
@@ -85,7 +104,10 @@ def sieve(limit: int) -> list:
     :param limit:       Finds all primes up to given limit
     :return:
 
-            sieve(limit=10) --> [2, 3, 5, 7]
+    Examples:
+    ---------
+            >>> sieve(limit=10)
+                [2, 3, 5, 7]
     """
     p = [True] * limit
     p[0], p[1] = False, False
@@ -103,14 +125,20 @@ def power_less_than(num: int, limit: int) -> int:
     """
     Returns the lowest num**n product under limit
 
-    :param num:
-    :param limit:
-    :return:
+    :param num:     Number to multiply
+    :param limit:   Number to not go over
+    :return:        num**n
 
-        power_less_than(num=2, limit=20) --> 16 (2**4 = 16, highest without going over 20)
-        power_less_than(num=2, limit=40) --> 32 (2**5 = 32, highest without going over 40)
-        power_less_than(num=3, limit=20) --> 9  (3**2 =  9, highest without going over 20)
-        power_less_than(num=3, limit=30) --> 27 (3**3 = 27, highest without going over 30)
+    Examples:
+    ---------
+        >>> power_less_than(num=2, limit=20)
+            16 (2**4 = 16, highest without going over 20)
+        >>> power_less_than(num=2, limit=40)
+            32 (2**5 = 32, highest without going over 40)
+        >>> power_less_than(num=3, limit=20)
+            9  (3**2 =  9, highest without going over 20)
+        >>> power_less_than(num=3, limit=30)
+            27 (3**3 = 27, highest without going over 30)
     """
     p = num
     while p < limit:
@@ -126,8 +154,12 @@ def smallest_multiple(n_min: int, n_max: int) -> int:
     :param n_max:   Maximum value
     :return:
 
-        smallest_multiple(n_min=1, n_max=4) --> 12 (first number divisible by 1, 2, 3, 4)
-        smallest_multiple(n_min=2, n_max=5) --> 60 (first number divisible by 2, 3, 4, 5)
+    Examples:
+    ---------
+        >>> smallest_multiple(n_min=1, n_max=4)
+            12 (first number divisible by 1, 2, 3, 4)
+        >>> smallest_multiple(n_min=2, n_max=5)
+            60 (first number divisible by 2, 3, 4, 5)
     """
     multi = n_min
     for p in prime_valuation(n_max + 1):
@@ -142,7 +174,10 @@ def sum_squares(limit: int) -> int:
     :param limit:     Range to use
     :return:
 
-        sum_squares(limit=3) --> 17 (sum[0**2, 1**2, 2**2, 3**2])
+    Examples:
+    ---------
+        >>> sum_squares(limit=3)
+            17 (sum[0**2, 1**2, 2**2, 3**2])
     """
     return sum([i**2 for i in range(limit)])
 
@@ -154,7 +189,10 @@ def square_sum(limit: int) -> int:
     :param limit:   Range to use
     :return:
 
-        square_sum(limit=5) --> 100 (sum[0, 1, 2, 3, 4] ** 2)
+    Examples:
+    ---------
+        >>> square_sum(limit=5)
+            100 (sum[0, 1, 2, 3, 4] ** 2)
     """
     return sum([i for i in range(limit)]) ** 2
 
@@ -259,7 +297,10 @@ def get_divisors(num: int) -> list:
     :param num:
     :return:
 
-        get_divisors(num=6) --> [1, 2, 3, 6]
+    Examples:
+    ---------
+        >>> get_divisors(num=6)
+            [1, 2, 3, 6]
     """
     divs = [1]  # 1 will always be a divisor
 
@@ -279,7 +320,8 @@ def get_path_results(length: int, width: int) -> int:
     :param width:   Grid width
     :return:
 
-        get_path_results(length: 2, width: 2) --> 6
+        get_path_results(length: 2, width: 2)
+            6
         https://projecteuler.net/project/images/p015.png
     """
     if length > width:
@@ -302,7 +344,7 @@ def find_max_sum_path(nums: list) -> int:
     return int(nums[0][0])
 
 
-def get_num_dates(start_year: int, end_year: int) -> Counter:
+def get_num_dates(start_year: int, end_year: int) -> int:
     """
     Returns the number of times Sunday fell on the 1st of the month in a given set of years
 
@@ -310,7 +352,10 @@ def get_num_dates(start_year: int, end_year: int) -> Counter:
     :param end_year:    Last year to search
     :return:
 
-        get_num_dates(start_year=2000, end_year=2001) --> 1 (int("<number of Sundays in the year 2000 that are on the 1st of the month>"))
+    Examples:
+    ---------
+        >>> get_num_dates(start_year=2000, end_year=2001)
+            1 (int("<number of Sundays in the year 2000 that are on the 1st of the month>"))
     """
     counter = Counter()
 
@@ -329,9 +374,14 @@ def factorial(num: int) -> int:
     :param num:     num!
     :return:
 
-        factorial(num=2) --> 2
-        factorial(num=4) --> 24
-        factorial(num=8) --> 40320
+    Examples:
+    ---------
+        >>> factorial(num=2)
+            2
+        >>> factorial(num=4)
+            24
+        >>> factorial(num=8)
+            40320
     """
     return math.factorial(num)
 
@@ -346,7 +396,10 @@ def find_amicable(limit: int) -> list:
     :param limit:   Max number to check for amicable
     :return:
 
-        find_amicable(limit=1500) --> [220, 284, 1210, 1184]
+    Examples:
+    ---------
+        >>> find_amicable(limit=1500)
+            [220, 284, 1210, 1184]
     """
     primes = [i for i in range(limit) if identify_prime(i)]
     amicable = []
@@ -373,7 +426,10 @@ def get_permutations(permutation: int, chars: str) -> str:
     :param chars:           Characters to generate permutations with
     :return:
 
-        get_permutations(permutation=3, chars="012") --> 102  ([012, 021, 102, 120, 201, 210][2])
+    Examples:
+    ---------
+        >>> get_permutations(permutation=3, chars="012")
+            102  ([012, 021, 102, 120, 201, 210][2])
     """
     return "".join(list(perm(chars, 10))[permutation - 1])
 
@@ -385,7 +441,10 @@ def recurring_decimal(div: int) -> str:
     :param div:     Divisor to return decimal values from
     :return:
 
-        recurring_decimal(div=3)    --> 1 (0.33333...)
+    Examples:
+    ---------
+        >>> recurring_decimal(div=3)
+            1 (0.33333...)
     """
     if div < 10:
         dividend = 10
@@ -420,9 +479,14 @@ def greatest_common_denominator(num1: int, num2: int) -> int:
 
     :param num1:    First number
     :param num2:    Second number
+    :return:
 
-        greatest_common_denominator(num1=10, num2=20) --> 10  (10*2 = 20, 10*1=10)
-        greatest_common_denominator(num1=12, num2=18) --> 6   (6*2 = 12, 6*4 = 18)
+    Examples:
+    ---------
+        >>> greatest_common_denominator(num1=10, num2=20)
+            10  (10*2 = 20, 10*1=10)
+        >>> greatest_common_denominator(num1=12, num2=18)
+            6   (6*2 = 12, 6*4 = 18)
     """
     r = 1
 
@@ -440,8 +504,13 @@ def lowest_common_multiplier(num1: int, num2: int) -> float:
 
     :param num1:    First number
     :param num2:    Second number
+    :return:
 
-        lowest_common_multiplier(num1=10, num2=20) --> 20  ((10*20)/10)
-        lowest_common_multiplier(num1=12, num2=18) --> 36  ((12*18)/6)
+    Examples:
+    ---------
+        >>> lowest_common_multiplier(num1=10, num2=20)
+            20  ((10*20)/10)
+        >>> lowest_common_multiplier(num1=12, num2=18)
+            36  ((12*18)/6)
     """
     return (num1 * num2) / greatest_common_denominator(num1, num2)

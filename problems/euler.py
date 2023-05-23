@@ -103,7 +103,7 @@ def problem_8(num: str, adjacent: int) -> int:
     """
     max_v = 0
 
-    for (i, n) in enumerate(num):
+    for i, n in enumerate(num):
         value = reduce((lambda x, y: x * y), map(int, (num[i : i + adjacent])))
 
         if value > max_v:
@@ -219,8 +219,8 @@ def problem_14(limit: int):
 
 def problem_15(length: int, width: int) -> int:
     """
-    :param length:  X axis of grid
-    :param width:   Y axis of grid
+    :param length:  X-axis of grid
+    :param width:   Y-axis of grid
     :return:
     """
     return ef.get_path_results(length=length, width=width)
@@ -541,9 +541,6 @@ def problem_32() -> int:
             s = str(i) + str(j) + str(i + j)
             if len(s) == 9 and set(s) == check:
                 solution.add(i * j)
-
-    print(solution)
-    print(sum(solution))
 
     return sum(solution)
 

@@ -9,52 +9,49 @@ import problems.euler as euler
 class TestEulerResults:
 
     """
-    In each test, expected_value is a number confirmed to be the correct number via the project euler problem link included in each test.
+    In each test, expected is a number confirmed to be the correct number via the project euler problem link included in each test.
     pytest.mark.parameterize was used in many cases to make the tests easily scalable, despite most failing with any other values being passed in.
     """
 
-    @pytest.mark.parametrize("num_1, num_2, limit", [(3, 5, 1000)])
-    def test_problem_1(self, num_1, num_2, limit):
+    @pytest.mark.parametrize("num_1, num_2, limit, expected", [(3, 5, 1000, 233168)])
+    def test_problem_1(self, num_1, num_2, limit, expected):
         """
         https://projecteuler.net/problem=1
 
         Find the sum of all the multiples of 3 or 5 below 1000.
         """
-        expected_value = 233168
         returned_value = euler.problem_1(num_1=num_1, num_2=num_2, limit=limit)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
-    @pytest.mark.parametrize("limit", [4000000])
-    def test_problem_2(self, limit):
+    @pytest.mark.parametrize("limit, expected", [(4000000, 4613732)])
+    def test_problem_2(self, limit, expected):
         """
         https://projecteuler.net/problem=2
 
         By considering the terms in the Fibonacci sequence whose values do not exceed four million,
         find the sum of the even-valued terms.
         """
-        expected_value = 4613732
         returned_value = euler.problem_2(limit=limit)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
-    @pytest.mark.parametrize("num", [600851475143])
-    def test_problem_3(self, num):
+    @pytest.mark.parametrize("num, expected", [(600851475143, 6857)])
+    def test_problem_3(self, num, expected):
         """
         https://projecteuler.net/problem=3
 
         What is the largest prime factor of the number 600851475143 ?
         """
-        expected_value = 6857
         returned_value = euler.problem_3(num=num)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     def test_problem_4(self):
         """
@@ -62,12 +59,12 @@ class TestEulerResults:
 
         Find the largest palindrome made from the product of two 3-digit numbers.
         """
-        expected_value = 906609
+        expected = 906609
         returned_value = euler.problem_4()
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("n_min, n_max", [(1, 20)])
     def test_problem_5(self, n_min, n_max):
@@ -76,12 +73,12 @@ class TestEulerResults:
 
         What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
         """
-        expected_value = 232792560
+        expected = 232792560
         returned_value = euler.problem_5(n_min=n_min, n_max=n_max)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("limit", [100])
     def test_problem_6(self, limit):
@@ -90,12 +87,12 @@ class TestEulerResults:
 
         Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
         """
-        expected_value = 24174150
+        expected = 24174150
         returned_value = euler.problem_6(limit=limit)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("prime_count", [10001])
     def test_problem_7(self, prime_count):
@@ -104,12 +101,12 @@ class TestEulerResults:
 
         What is the 10001st prime number?
         """
-        expected_value = 104743
+        expected = 104743
         returned_value = euler.problem_7(num=prime_count)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("adjacent", [13])
     def test_problem_8(self, adjacent):
@@ -119,7 +116,7 @@ class TestEulerResults:
         Find the thirteen adjacent digits in the 1000-digit number that have the greatest product.
         What is the value of this product?
         """
-        expected_value = 23514624000
+        expected = 23514624000
 
         with open(os.path.join(os.getcwd(), "data", "problem_008.txt"), "r") as f:
             num = f.readlines()[0]
@@ -127,8 +124,8 @@ class TestEulerResults:
             returned_value = euler.problem_8(num=num, adjacent=adjacent)
 
             assert (
-                expected_value == returned_value
-            ), f"Expected {expected_value}, got {returned_value} instead."
+                expected == returned_value
+            ), f"Expected {expected}, got {returned_value} instead."
 
     def test_problem_9(self):
         """
@@ -137,12 +134,12 @@ class TestEulerResults:
         There exists exactly one Pythagorean triplet for which a + b + c = 1000.
         Find the product abc.
         """
-        expected_value = 31875000
+        expected = 31875000
         returned_value = euler.problem_9(c=1000)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("below", [1999999])
     def test_problem_10(self, below):
@@ -151,12 +148,12 @@ class TestEulerResults:
 
         Find the sum of all the primes below two million.
         """
-        expected_value = 142913828922
+        expected = 142913828922
         returned_value = euler.problem_10(num=below)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     def test_problem_11(self):
         """
@@ -164,7 +161,7 @@ class TestEulerResults:
 
         What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in a 20×20 grid?
         """
-        expected_value = 70600674
+        expected = 70600674
 
         with open(os.path.join(os.getcwd(), "data", "problem_011.txt"), "r") as f:
             grid = [
@@ -175,8 +172,8 @@ class TestEulerResults:
             returned_value = euler.problem_11(grid)
 
             assert (
-                expected_value == returned_value
-            ), f"Expected {expected_value}, got {returned_value} instead."
+                expected == returned_value
+            ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.slow
     @pytest.mark.parametrize("divs", [500])
@@ -201,12 +198,12 @@ class TestEulerResults:
 
         What is the value of the first triangle number to have over five hundred divisors?
         """
-        expected_value = 76576500
+        expected = 76576500
         returned_value = euler.problem_12(expected_divs=divs)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("num_digits", [10])
     def test_problem_13(self, num_digits):
@@ -215,7 +212,7 @@ class TestEulerResults:
 
         Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.
         """
-        expected_value = 5537376230
+        expected = 5537376230
 
         with open(os.path.join(os.getcwd(), "data", "problem_013.txt"), "r") as f:
             numbers = [n for n in list(map(int, f))]
@@ -223,8 +220,8 @@ class TestEulerResults:
             returned_value = euler.problem_13(nums=numbers, num_digits=num_digits)
 
             assert (
-                expected_value == returned_value
-            ), f"Expected {expected_value}, got {returned_value} instead."
+                expected == returned_value
+            ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.slow
     @pytest.mark.parametrize("limit", [999999])
@@ -244,12 +241,12 @@ class TestEulerResults:
 
         Which starting number, under one million, produces the longest chain?
         """
-        expected_value = 837799
+        expected = 837799
         returned_value = euler.problem_14(limit=limit)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("x, y", [(20, 20)])
     def test_problem_15(self, x, y):
@@ -260,12 +257,12 @@ class TestEulerResults:
 
         How many such routes are there through a 20×20 grid?
         """
-        expected_value = 137846528820
+        expected = 137846528820
         returned_value = euler.problem_15(length=x, width=y)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("num, power", [(2, 1000)])
     def test_problem_16(self, num, power):
@@ -274,12 +271,12 @@ class TestEulerResults:
 
         What is the sum of the digits of the number 2^1000?
         """
-        expected_value = 1366
+        expected = 1366
         returned_value = euler.problem_16(num=num, power=power)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     def test_problem_17(self):
         """
@@ -293,12 +290,12 @@ class TestEulerResults:
                 115 (one hundred and fifteen) contains 20 letters.
             The use of "and" when writing out numbers is in compliance with British usage.
         """
-        expected_value = 21124
+        expected = 21124
         returned_value = euler.problem_17()
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     def test_problem_18(self):
         """
@@ -316,7 +313,7 @@ class TestEulerResults:
 
         Find the maximum total from top to bottom of the triangle provided
         """
-        expected_value = 1074
+        expected = 1074
 
         with open(os.path.join(os.getcwd(), "data", "problem_018.txt"), "r") as f:
             numbers = [
@@ -327,8 +324,8 @@ class TestEulerResults:
             returned_value = euler.problem_18(numbers)
 
             assert (
-                expected_value == returned_value
-            ), f"Expected {expected_value}, got {returned_value} instead."
+                expected == returned_value
+            ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("start, end", [(1901, 2001)])
     def test_problem_19(self, start, end):
@@ -348,12 +345,12 @@ class TestEulerResults:
 
         How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
         """
-        expected_value = 171
+        expected = 171
         returned_value = euler.problem_19(start_year=start, end_year=end)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("number", [100])
     def test_problem_20(self, number):
@@ -367,12 +364,12 @@ class TestEulerResults:
 
         Find the sum of the digits in the number 100!
         """
-        expected_value = 648
+        expected = 648
         returned_value = euler.problem_20(number=number)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("limit", [8000])
     def test_problem_21(self, limit):
@@ -389,12 +386,12 @@ class TestEulerResults:
 
         Evaluate the sum of all the amicable numbers under 10000.
         """
-        expected_value = 31626
+        expected = 31626
         returned_value = euler.problem_21(limit=limit)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     def test_problem_22(self):
         """
@@ -409,7 +406,7 @@ class TestEulerResults:
 
         What is the total of all the name scores in the file?
         """
-        expected_value = 871198282
+        expected = 871198282
 
         with open(os.path.join(os.getcwd(), "data", "problem_022.txt"), "r") as f:
             names = [name for name in list(map(str, f))]
@@ -417,8 +414,8 @@ class TestEulerResults:
             returned_value = euler.problem_22(names)
 
             assert (
-                expected_value == returned_value
-            ), f"Expected {expected_value}, got {returned_value} instead."
+                expected == returned_value
+            ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("limit", [28123])
     def test_problem_23(self, limit):
@@ -427,7 +424,7 @@ class TestEulerResults:
 
         A perfect number is a number for which the sum of its proper divisors is exactly equal to the number. For example:
             The sum of the proper divisors of 28 would be 1 + 2 + 4 + 7 + 14 = 28, which means that 28 is a perfect number.
-            A number n is called deficient if the sum of its proper divisors is less than n
+            A number n is called deficient if the sum of its proper divisors is less than n,
                 and it is called abundant if this sum exceeds n.
         As 12 is the smallest abundant number, 1 + 2 + 3 + 4 + 6 = 16, the smallest number that can be written
             as the sum of two abundant numbers is 24. By mathematical analysis, it can be shown that all integers greater
@@ -436,12 +433,12 @@ class TestEulerResults:
             abundant numbers is less than this limit.
         Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.
         """
-        expected_value = 4179871
+        expected = 4179871
         returned_value = euler.problem_23(limit=limit)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("value", ["0123456789"])
     def test_problem_24(self, value):
@@ -453,12 +450,12 @@ class TestEulerResults:
         The lexicographic permutations of 0, 1 and 2 are: 012   021   102   120   201   210
         What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
         """
-        expected_value = 2783915460
+        expected = 2783915460
         returned_value = euler.problem_24(perm=1000000, chars=value)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("count", [1000])
     def test_problem_25(self, count):
@@ -467,12 +464,12 @@ class TestEulerResults:
 
         What is the index of the first term in the Fibonacci sequence to contain 1000 digits?
         """
-        expected_value = 4782
+        expected = 4782
         returned_value = euler.problem_25(count=count)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("limit", [999])
     def test_problem_26(self, limit):
@@ -481,12 +478,12 @@ class TestEulerResults:
 
         Find the value of d < 1000 for which 1/d contains the longest recurring cycle in its decimal fraction part.
         """
-        expected_value = 983
+        expected = 983
         returned_value = euler.problem_26(limit=limit)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.skip(reason="Have not solved yet")
     def test_problem_27(self):
@@ -522,12 +519,12 @@ class TestEulerResults:
 
         What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral formed in the same way?
         """
-        expected_value = 669171001
+        expected = 669171001
         returned_value = euler.problem_28(limit=limit)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("num", [100])
     def test_problem_29(self, num):
@@ -546,12 +543,12 @@ class TestEulerResults:
 
         How many distinct terms are in the sequence generated by ab for 2 ≤ a ≤ 100 and 2 ≤ b ≤ 100?
         """
-        expected_value = 9183
+        expected = 9183
         returned_value = euler.problem_29(num=num)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("power", [5])
     def test_problem_30(self, power):
@@ -570,12 +567,12 @@ class TestEulerResults:
 
         Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.
         """
-        expected_value = 443839
+        expected = 443839
         returned_value = euler.problem_30(power=power)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     @pytest.mark.parametrize("coins, check", [([1, 2, 5, 10, 20, 50, 100, 200], 200)])
     def test_problem_31(self, coins, check):
@@ -592,14 +589,13 @@ class TestEulerResults:
 
         How many ways can £2 be made using any number of coins?
         """
-        expected_value = 73682
+        expected = 73682
         returned_value = euler.problem_31(coins=coins, target=check)
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
-    @pytest.mark.test
     def test_problem_32(self):
         """
         https://projecteuler.net/problem=32
@@ -611,12 +607,12 @@ class TestEulerResults:
         Find the sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital.
         HINT: Some products can be obtained in more than one way so be sure to only include it once in your sum.
         """
-        expected_value = 45228
+        expected = 45228
         returned_value = euler.problem_32()
 
         assert (
-            expected_value == returned_value
-        ), f"Expected {expected_value}, got {returned_value} instead."
+            expected == returned_value
+        ), f"Expected {expected}, got {returned_value} instead."
 
     def test_problem_67(self):
         """
@@ -625,7 +621,7 @@ class TestEulerResults:
         Find the maximum total from top to bottom in get_problem_67_data() containing a triangle with one-hundred rows.
         NOTE: This is a much more difficult version of Problem 18. It is not possible to try every route to solve this problem, as there are 299 altogether
         """
-        expected_value = 7273
+        expected = 7273
 
         with open(os.path.join(os.getcwd(), "data", "problem_067.txt"), "r") as f:
             numbers = [
@@ -636,5 +632,5 @@ class TestEulerResults:
             returned_value = euler.problem_67(numbers)
 
             assert (
-                expected_value == returned_value
-            ), f"Expected {expected_value}, got {returned_value} instead."
+                expected == returned_value
+            ), f"Expected {expected}, got {returned_value} instead."
